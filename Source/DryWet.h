@@ -68,8 +68,6 @@ private:
 
     void updateState()
     {
-        //dryLevel = sqrt(1.0 - dwRatio);
-        //wetLevel = sqrt(dwRatio);
         dryLevel.setTargetValue(sqrt(1.0 - dwRatio));
         wetLevel.setTargetValue(sqrt(dwRatio));
     }
@@ -78,9 +76,6 @@ private:
 
     float dwRatio = DEFAULT_DRY_WET;
 
-    // SMOOTH THIS!
-    //float dryLevel = 0.0;
-    //float wetLevel = 0.0;
     SmoothedValue<float, ValueSmoothingTypes::Linear> dryLevel;
     SmoothedValue<float, ValueSmoothingTypes::Linear> wetLevel;
 

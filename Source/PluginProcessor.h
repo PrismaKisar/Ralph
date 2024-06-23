@@ -6,7 +6,7 @@
 #include "BitCrush.h"
 #include "DownSample.h"
 
-class RalphAudioProcessor  : public juce::AudioProcessor, public AudioProcessorValueTreeState::Listener
+class RalphAudioProcessor : public juce::AudioProcessor, public AudioProcessorValueTreeState::Listener
 {
 public:
     RalphAudioProcessor();
@@ -42,7 +42,7 @@ private:
     
     DryWet drywetter;
     // DownSample downSample;
-    // BitCrush bitCrush;
+    BitCrush bitCrush;
     
     NaiveOscillator lfoDS;
     NaiveOscillator lfoBC;

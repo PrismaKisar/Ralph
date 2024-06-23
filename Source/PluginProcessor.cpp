@@ -6,6 +6,7 @@
 RalphAudioProcessor::RalphAudioProcessor() :
     parameters(*this, nullptr, "PARAMS", Parameters::createParameterLayout()),
     drywetter(Parameters::defaultDryWet),
+    bitCrush(24, 24),
     lfoDS(Parameters::defaultFreq, Parameters::defaultWaveform),
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
     DSModulation(Parameters::defaultSampleRate, Parameters::defaultAmount),
@@ -49,12 +50,13 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     
     drywetter.copyDrySignal(buffer);
 
-    // processing del tutto
+    //downSample.processBlock(buffer);
+    bitCrush.processBlock(buffer);
     
     drywetter.mixDrySignal(buffer);
 }
 
-void RalphAudioProcessor::parameterChanged(const String &paramID, float newValue)
+void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue)
 {
     if (paramID == Parameters::nameDryWet) drywetter.setDWRatio(newValue);
     if (paramID == Parameters::nameFreqDS) lfoDS.setFrequency(newValue);
@@ -62,7 +64,7 @@ void RalphAudioProcessor::parameterChanged(const String &paramID, float newValue
     if (paramID == Parameters::nameWaveformDS) lfoDS.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     //if (paramID == Parameters::nameDownSample) downSample.setSamples(newValue);
-    //if (paramID == Parameters::nameBitCrush) bitCrush.setBits(newValue);
+    if (paramID == Parameters::nameBitCrush) bitCrush.setBits(newValue);
 }
 
 

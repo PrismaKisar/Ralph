@@ -5,7 +5,7 @@
 class BitCrush {
 public:
     BitCrush(double defaultMaxBits = 24, double defaultBits = 24);
-    ~BitCrush();
+    ~BitCrush() {}
     
     void processBlock (juce::AudioBuffer<float>& buffer);
     void setBits(float newValue);

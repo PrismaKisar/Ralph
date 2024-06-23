@@ -24,17 +24,16 @@ namespace Parameters
     static const float defaultBitDepth = 24.0f;
     static const int defaultWaveform = 0;
 
-
-
 	static AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
 	{
 		std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
 		parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDryWet, 1), "Dry/Wet (%)", 0, 1, defaultDryWet));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameBitCrush, 1), "Bits", NormalisableRange<float>(1.0f, 24.0f, 0.001, 0.4f), defaultFreq));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqDS, 1), "LFO Frequency DownSampling (Hz)", NormalisableRange<float>(0.01f, 60.0f, 0.01, 0.2f), defaultFreq));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqBC, 1), "LFO Frequency BitCrush (Hz)", NormalisableRange<float>(0.01f, 60.0f, 0.01, 0.2f), defaultFreq));
         parameters.push_back(std::make_unique<AudioParameterChoice>(ParameterID(nameWaveformDS, 1), "LFO Waveform DownSampling", StringArray{"Sinusoid","Triangular","Saw Up","Saw Down","Square"}, defaultWaveform));
         parameters.push_back(std::make_unique<AudioParameterChoice>(ParameterID(nameWaveformBC, 1), "LFO Waveform BitCrush", StringArray{"Sinusoid","Triangular","Saw Up","Saw Down","Square"}, defaultWaveform));
-		
+       
 		return { parameters.begin(), parameters.end() };
 	}
 
