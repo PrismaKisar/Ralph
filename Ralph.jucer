@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Cbjik9" name="Ralph" projectType="audioplug" useAppConfig="0"
+              displaySplashScreen="1" jucerFormatVersion="1" pluginManufacturer="LIM"
+              pluginManufacturerCode="LIM!" pluginChannelConfigs="{1,1},{2,2}">
+  <MAINGROUP id="j9KUYh" name="Ralph">
+    <GROUP id="{6D167E0B-6DFE-3963-20D0-F27937391CCF}" name="Source">
+      <GROUP id="{3B174EC7-8782-68D5-E787-6E618ED09C61}" name="GUI">
+        <FILE id="vfqtOH" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/PluginEditor.cpp"/>
+        <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      </GROUP>
+      <GROUP id="{1535BFAE-7872-CEB1-A94D-10B68BB54F9C}" name="DSP">
+        <GROUP id="{38312ACE-5437-6035-8826-801E09F33B4E}" name="Crushing">
+          <FILE id="zt1aeM" name="BitCrush.cpp" compile="1" resource="0" file="Source/BitCrush.cpp"/>
+          <FILE id="MDk6W5" name="BitCrush.h" compile="0" resource="0" file="Source/BitCrush.h"/>
+          <FILE id="fy2g8q" name="DownSample.cpp" compile="1" resource="0" file="Source/DownSample.cpp"/>
+          <FILE id="eTNkqa" name="DownSample.h" compile="0" resource="0" file="Source/DownSample.h"/>
+        </GROUP>
+        <GROUP id="{1DDA1580-86C5-096E-8087-BEDA8190A9CD}" name="LFO">
+          <FILE id="YV2pwR" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+          <FILE id="CnL6pe" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+        </GROUP>
+        <GROUP id="{556A293B-C950-D00B-19B3-A4C037E10A49}" name="DryWet">
+          <FILE id="PWbLIV" name="DryWet.cpp" compile="1" resource="0" file="Source/DryWet.cpp"/>
+          <FILE id="CvhvJm" name="DryWet.h" compile="0" resource="0" file="Source/DryWet.h"/>
+        </GROUP>
+        <GROUP id="{CB600F85-AA86-DA64-DDD4-7D88A3571C1F}" name="Processor">
+          <FILE id="x3BX0l" name="Parameters.cpp" compile="1" resource="0" file="Source/Parameters.cpp"/>
+          <FILE id="kR6sSx" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
+          <FILE id="P9vjie" name="PluginProcessor.cpp" compile="1" resource="0"
+                file="Source/PluginProcessor.cpp"/>
+          <FILE id="zpXJKv" name="PluginProcessor.h" compile="0" resource="0"
+                file="Source/PluginProcessor.h"/>
+        </GROUP>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Ralph"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Ralph"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
