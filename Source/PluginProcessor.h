@@ -41,7 +41,7 @@ private:
     AudioBuffer<double> modulation;
     
     DryWet drywetter;
-    // DownSample downSample;
+    DownSample downSample;
     BitCrush bitCrush;
     
     NaiveOscillator lfoDS;
