@@ -16,9 +16,9 @@ private:
 	int waveform;
 	SmoothedValue<double, ValueSmoothingTypes::Multiplicative> frequency;
 
-	double currentPhase = 0;
-	double phaseIncrement = 0;
-	double samplePeriod = 1.0;
+	double currentPhase;
+	double phaseIncrement;
+	double samplePeriod;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NaiveOscillator)
 };

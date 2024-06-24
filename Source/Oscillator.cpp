@@ -1,8 +1,12 @@
 #include "Oscillator.h"
 
 /* NaiveOscillator */
-NaiveOscillator::NaiveOscillator(double defaultFrequency, int defaultWaveform) {
-    waveform = defaultWaveform;
+NaiveOscillator::NaiveOscillator(double defaultFrequency, int defaultWaveform) :
+waveform(defaultWaveform),
+currentPhase(0),
+phaseIncrement(0),
+samplePeriod(0)
+{
     frequency.setTargetValue(defaultFrequency);
 }
 
@@ -105,6 +109,8 @@ void ParameterModulation::processBlock(AudioBuffer<double>& buffer, const int nu
         for (int ch = 0; ch < numCh; ++ch)
             FloatVectorOperations::add(data[ch], parameter.getCurrentValue(), numSamples);
     }
+    
+    DBG("parameter: " << parameter.getNextValue() << " modAmount: " << modAmount.getNextValue());
 }
 
 
