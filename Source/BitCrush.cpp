@@ -1,14 +1,5 @@
 #include "BitCrush.h"
 
-BitCrush::BitCrush(double defaultMaxBits, double defaultBits) {
-    //bits.setCurrentAndTargetValue(defaultBits);
-    maxBits = defaultMaxBits;
-}
-
-void BitCrush::prepareToPlay(double sampleRate) {
-    //bits.reset(sampleRate, 0.001);
-}
-
 void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<double>& modulation) {
     const auto numSamples = buffer.getNumSamples();
     const auto numCh = buffer.getNumChannels();
@@ -22,12 +13,6 @@ void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<
         for (int ch = 0; ch < numCh; ++ch)
             bufferData[ch][smp] = crush(static_cast<float>(bufferData[ch][smp]), modData[jmin(ch, numModCh - 1)][smp]);
 }
-
-/*
-void BitCrush::setBits(float newValue) {
-    bits.setTargetValue(newValue);
-}
- */
 
 float BitCrush::crush(float value, double bits) {
     double QL = 2.0 / (pow(2, bits) - 1);

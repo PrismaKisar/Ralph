@@ -41,13 +41,10 @@ private:
     AudioBuffer<double> modulation;
     
     DryWet drywetter;
-    DownSample downSample;
     BitCrush bitCrush;
     
-    NaiveOscillator lfoDS;
     NaiveOscillator lfoBC;
 
-    ParameterModulation DSModulation;
     ParameterModulation BCModulation;
     
     void parameterChanged(const String& paramID, float newValue) override;

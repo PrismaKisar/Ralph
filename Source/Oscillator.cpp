@@ -109,8 +109,6 @@ void ParameterModulation::processBlock(AudioBuffer<double>& buffer, const int nu
         for (int ch = 0; ch < numCh; ++ch)
             FloatVectorOperations::add(data[ch], parameter.getCurrentValue(), numSamples);
     }
-    
-    DBG("parameter: " << parameter.getNextValue() << " modAmount: " << modAmount.getNextValue());
 }
 
 
