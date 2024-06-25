@@ -39,14 +39,13 @@ public:
 private:
     AudioProcessorValueTreeState parameters;
     
-    AudioBuffer<double> modulation;
     
     DryWet drywetter;
-    BitCrush bitCrush;
     
+    BitCrush bitCrush;
     Oscillator lfoBC;
-
-    ModulationControl BCModulation;
+    AudioBuffer<double> BCMod;
+    ModulationControl BCModCtrl;
     
     void parameterChanged(const String& paramID, float newValue) override;
     

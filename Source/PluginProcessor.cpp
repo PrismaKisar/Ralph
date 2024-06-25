@@ -8,7 +8,7 @@ RalphAudioProcessor::RalphAudioProcessor() :
     drywetter(Parameters::defaultDryWet),
     bitCrush(),
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
-    BCModulation(Parameters::defaultBitDepth, Parameters::defaultAmount)
+    BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount)
 {
     Parameters::addListenerToAllParameters(parameters, this);
 }
@@ -18,33 +18,33 @@ RalphAudioProcessor::~RalphAudioProcessor() {}
 void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock) {
     drywetter.prepareToPlay(sampleRate, samplesPerBlock);
     lfoBC.prepareToPlay(sampleRate);
-    modulation.setSize(2, samplesPerBlock);
-    BCModulation.prepareToPlay(sampleRate);
+    BCMod.setSize(2, samplesPerBlock);
+    BCModCtrl.prepareToPlay(sampleRate);
 }
 
 void RalphAudioProcessor::releaseResources() {
     drywetter.releaseResources();
-    modulation.setSize(0, 0);
+    BCMod.setSize(0, 0);
 }
 
 void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages) {
     juce::ScopedNoDenormals noDenormals;
     const auto numSamples = buffer.getNumSamples();
     
-    lfoBC.getNextAudioBlock(modulation, numSamples);
-    BCModulation.processBlock(modulation, numSamples);
+    lfoBC.getNextAudioBlock(BCMod, numSamples);
+    BCModCtrl.processBlock(BCMod, numSamples);
     
     drywetter.copyDrySignal(buffer);
-    bitCrush.processBlock(buffer, modulation);
+    bitCrush.processBlock(buffer, BCMod);
     drywetter.mixDrySignal(buffer);
 }
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
     if (paramID == Parameters::nameDryWet) drywetter.setDWRatio(newValue);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
-    if (paramID == Parameters::nameAmountBC) BCModulation.setModAmount(newValue);
+    if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
-    if (paramID == Parameters::nameBitCrush) BCModulation.setParameter(newValue);
+    if (paramID == Parameters::nameBitCrush) BCModCtrl.setParameter(newValue);
 }
 
 
