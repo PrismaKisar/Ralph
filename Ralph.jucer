@@ -18,6 +18,10 @@
           <FILE id="eTNkqa" name="DownSample.h" compile="0" resource="0" file="Source/DownSample.h"/>
         </GROUP>
         <GROUP id="{1DDA1580-86C5-096E-8087-BEDA8190A9CD}" name="LFO">
+          <FILE id="ThnKS6" name="ModulationControl.cpp" compile="1" resource="0"
+                file="Source/ModulationControl.cpp"/>
+          <FILE id="gBCPvj" name="ModulationControl.h" compile="0" resource="0"
+                file="Source/ModulationControl.h"/>
           <FILE id="YV2pwR" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
           <FILE id="CnL6pe" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
         </GROUP>

@@ -5,6 +5,7 @@
 #include "Oscillator.h"
 #include "BitCrush.h"
 #include "DownSample.h"
+#include "ModulationControl.h"
 
 class RalphAudioProcessor : public juce::AudioProcessor, public AudioProcessorValueTreeState::Listener
 {
@@ -43,9 +44,9 @@ private:
     DryWet drywetter;
     BitCrush bitCrush;
     
-    NaiveOscillator lfoBC;
+    Oscillator lfoBC;
 
-    ParameterModulation BCModulation;
+    ModulationControl BCModulation;
     
     void parameterChanged(const String& paramID, float newValue) override;
     
