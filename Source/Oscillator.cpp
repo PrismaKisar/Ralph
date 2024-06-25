@@ -1,6 +1,5 @@
 #include "Oscillator.h"
 
-/* NaiveOscillator */
 Oscillator::Oscillator(double defaultFrequency, int defaultWaveform) :
 waveform(defaultWaveform),
 currentPhase(0),

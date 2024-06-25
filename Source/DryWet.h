@@ -4,78 +4,25 @@
 
 #define DEFAULT_DRY_WET 0.5
 
-class DryWet
-{
+class DryWet {
 public:
-    DryWet(double defaultDW = DEFAULT_DRY_WET)
-    {
-        dwRatio = defaultDW;
-    }
-    
+    DryWet(double defaultDW = DEFAULT_DRY_WET) : dwRatio(defaultDW) {}
     ~DryWet() {}
 
-    void prepareToPlay(double sr, int maxBlockSize)
-    {
-        drySignal.setSize(2, maxBlockSize);
-        drySignal.clear();
+    void prepareToPlay(double sr, int maxBlockSize);
+    void releaseResources();
 
-        dryLevel.reset(sr, 0.01);
-        wetLevel.reset(sr, 0.01);
-
-        updateState();
-    }
-
-    void releaseResources()
-    {
-        drySignal.setSize(0, 0);
-    }
-
-    void copyDrySignal(AudioBuffer<float>& sourceBuffer)
-    {
-        auto numCh = sourceBuffer.getNumChannels();
-        auto numSamples = sourceBuffer.getNumSamples();
-
-        for (int ch = 0; ch < numCh; ++ch)
-        {
-            drySignal.copyFrom(ch, 0, sourceBuffer, ch, 0, numSamples);
-        }
-    }
-
-    void mixDrySignal(AudioBuffer<float>& destinationBuffer)
-    {
-        auto numCh = destinationBuffer.getNumChannels();
-        auto numSamples = destinationBuffer.getNumSamples();
-        
-        dryLevel.applyGain(drySignal, numSamples);
-        wetLevel.applyGain(destinationBuffer, numSamples);
-
-        for (int ch = 0; ch < numCh; ++ch)
-        {
-            destinationBuffer.addFrom(ch, 0, drySignal, ch, 0, numSamples);
-        }
-    }
-
-    void setDWRatio(float newValue)
-    {
-        dwRatio = newValue;
-        updateState();
-    }
-
+    void copyDrySignal(AudioBuffer<float>& sourceBuffer);
+    void mixDrySignal(AudioBuffer<float>& destinationBuffer);
+    void setDWRatio(float newValue);
 
 private:
-
-    void updateState()
-    {
-        dryLevel.setTargetValue(sqrt(1.0 - dwRatio));
-        wetLevel.setTargetValue(sqrt(dwRatio));
-    }
-
     AudioBuffer<float> drySignal;
-
-    float dwRatio = DEFAULT_DRY_WET;
-
+    float dwRatio;
     SmoothedValue<float, ValueSmoothingTypes::Linear> dryLevel;
     SmoothedValue<float, ValueSmoothingTypes::Linear> wetLevel;
+    
+    void updateState();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DryWet)
 };
