@@ -10,14 +10,16 @@ RalphAudioProcessor::RalphAudioProcessor() :
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
     BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount)
 {
-    GainIN.setCurrentAndTargetValue(1.0f);
+    GainIn.setCurrentAndTargetValue(1.0f);
+    GainOut.setCurrentAndTargetValue(1.0f);
     Parameters::addListenerToAllParameters(parameters, this);
 }
 
 RalphAudioProcessor::~RalphAudioProcessor() {}
 
 void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock) {
-    GainIN.reset(sampleRate, 0.02);
+    GainIn.reset(sampleRate, 0.02);
+    GainOut.reset(sampleRate, 0.02);
     drywetter.prepareToPlay(sampleRate, samplesPerBlock);
     lfoBC.prepareToPlay(sampleRate);
     BCMod.setSize(2, samplesPerBlock);
@@ -33,7 +35,7 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     juce::ScopedNoDenormals noDenormals;
     const auto numSamples = buffer.getNumSamples();
     
-    GainIN.applyGain(buffer, numSamples);
+    GainIn.applyGain(buffer, numSamples);
 
     lfoBC.getNextAudioBlock(BCMod, numSamples);
     BCModCtrl.processBlock(BCMod, numSamples);
@@ -41,6 +43,8 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     drywetter.copyDrySignal(buffer);
     bitCrush.processBlock(buffer, BCMod);
     drywetter.mixDrySignal(buffer);
+    
+    GainOut.applyGain(buffer, numSamples);
 }
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
@@ -49,7 +53,8 @@ void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue
     if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameBitCrush) BCModCtrl.setParameter(newValue);
-    if (paramID == Parameters::nameGainIn) GainIN.setTargetValue(Decibels::decibelsToGain(newValue));
+    if (paramID == Parameters::nameGainIn) GainIn.setTargetValue(Decibels::decibelsToGain(newValue));
+    if (paramID == Parameters::nameGainOut) GainOut.setTargetValue(Decibels::decibelsToGain(newValue));
 }
 
 

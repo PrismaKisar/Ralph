@@ -45,9 +45,7 @@ public:
     {
         auto numCh = destinationBuffer.getNumChannels();
         auto numSamples = destinationBuffer.getNumSamples();
-
-        //drySignal.applyGain(0, numSamples, dryLevel);
-        //destinationBuffer.applyGain(wetLevel);
+        
         dryLevel.applyGain(drySignal, numSamples);
         wetLevel.applyGain(destinationBuffer, numSamples);
 

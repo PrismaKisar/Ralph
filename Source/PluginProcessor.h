@@ -39,7 +39,8 @@ public:
 private:
     AudioProcessorValueTreeState parameters;
     
-    SmoothedValue<float, ValueSmoothingTypes::Linear> GainIN;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> GainIn;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> GainOut;
     DryWet drywetter;
     
     BitCrush bitCrush;
