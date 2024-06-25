@@ -9,8 +9,11 @@ namespace Parameters
     static const float minBitDepth = 4.0f;
     static const float modBitRange = 4.0f;
     static const float maxFreq = 60.0f;
+    static const float minGain = -48.0f;
+    static const float maxGain = 6.0f;
 
 	// PARAM IDs
+    static const String nameGainIn = "GIN";
 	static const String nameDryWet = "DW";
     static const String nameFreqBC = "MFBC";
     static const String nameAmountBC = "ABC";
@@ -18,6 +21,7 @@ namespace Parameters
     static const String nameBitCrush = "BC";
 
 	// PARAM DEFAULTS
+    static const float defaultGain = 0.0f;
 	static const float defaultDryWet = 0.5f;
     static const float defaultFreq = 1.0f;
     static const float defaultAmount = 0.0f;
@@ -26,6 +30,7 @@ namespace Parameters
 
 static AudioProcessorValueTreeState::ParameterLayout createParameterLayout() {
 		std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameGainIn, 1), "Gain IN", NormalisableRange<float>(minGain, maxGain, 0.1f, 1.0f), defaultGain));
 		parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDryWet, 1), "Dry/Wet (%)", 0, 1, defaultDryWet));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameBitCrush, 1), "Bits", NormalisableRange<float>(minBitDepth, maxBitDepth - modBitRange, 0.001f, 0.4f), defaultBitDepth));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqBC, 1), "LFO Frequency BitCrush (Hz)", NormalisableRange<float>(0.01f, maxFreq, 0.1f, 0.2f), defaultFreq));
