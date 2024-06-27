@@ -4,15 +4,22 @@
 
 class DownSample {
 public:
-    DownSample(double defaultMaxSR = 24, double defaultSR = 24);
-    ~DownSample() {}
+    DownSample();
+    ~DownSample();
     
-    void processBlock (juce::AudioBuffer<float>& buffer);
-    void setSR(float newValue);
+    void prepareToPlay(double sampleRate, int samplesPerBlock);
+    void releaseResources();
+    void processBlock(juce::AudioBuffer<float>& buffer);
+    void setTargetSampleRate(float newValue);
     
 private:
-    SmoothedValue<float, ValueSmoothingTypes::Linear> SR;
-    double maxSR;
-
+    AudioBuffer<float> downsampledBuffer;
+    AudioBuffer<float> upsampledBuffer;
+    
+    double currentSampleRate;
+    double targetSampleRate;
+    double downSamplingRatio;
+    double upSamplingRatio;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DownSample)
 };

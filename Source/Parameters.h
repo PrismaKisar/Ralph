@@ -21,6 +21,8 @@ namespace Parameters {
     static const String nameAmountBC = "ABC";
     static const String nameWaveformBC = "MWBC";
     static const String nameBitCrush = "BC";
+    static const String nameDownSample = "DS";
+
 
     // PARAM DEFAULTS
     static const float defaultGain = 0.0f;
@@ -33,6 +35,7 @@ namespace Parameters {
     static AudioProcessorValueTreeState::ParameterLayout createParameterLayout() {
         std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameGainIn, 1), "Gain IN", NormalisableRange<float>(minGain, maxGain, 0.1f, 3.0f), defaultGain));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDownSample, 1), "DownSaample", NormalisableRange<float>(2000, 44100, 1, 1.0f), 44100));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDryWet, 1), "Dry/Wet (%)", 0, 1, defaultDryWet));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameBitCrush, 1), "Bits", NormalisableRange<float>(minBitDepth, maxBitDepth - modBitRange, 0.001f, 0.4f), defaultBitDepth));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqBC, 1), "LFO Frequency BitCrush (Hz)", NormalisableRange<float>(minFreq, maxFreq, 0.1f, 0.2f), defaultFreq));

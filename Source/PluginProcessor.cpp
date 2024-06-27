@@ -8,7 +8,8 @@ RalphAudioProcessor::RalphAudioProcessor() :
     drywetter(Parameters::defaultDryWet),
     bitCrush(),
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
-    BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount)
+    BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount),
+    downSample()
 {
     GainIn.setCurrentAndTargetValue(1.0f);
     GainOut.setCurrentAndTargetValue(1.0f);
@@ -21,6 +22,7 @@ void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     GainIn.reset(sampleRate, 0.02);
     GainOut.reset(sampleRate, 0.02);
     drywetter.prepareToPlay(sampleRate, samplesPerBlock);
+    downSample.prepareToPlay(sampleRate, samplesPerBlock);
     lfoBC.prepareToPlay(sampleRate);
     BCMod.setSize(2, samplesPerBlock);
     BCModCtrl.prepareToPlay(sampleRate);
@@ -29,6 +31,7 @@ void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 void RalphAudioProcessor::releaseResources() {
     drywetter.releaseResources();
     BCMod.setSize(0, 0);
+    downSample.releaseResources();
 }
 
 void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages) {
@@ -42,6 +45,7 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     
     drywetter.copyDrySignal(buffer);
     bitCrush.processBlock(buffer, BCMod);
+    downSample.processBlock(buffer);
     drywetter.mixDrySignal(buffer);
     
     GainOut.applyGain(buffer, numSamples);
@@ -49,9 +53,10 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
     if (paramID == Parameters::nameDryWet) drywetter.setDWRatio(newValue);
+    if (paramID == Parameters::nameDownSample) downSample.setTargetSampleRate(newValue);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
-    if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
+    if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameBitCrush) BCModCtrl.setParameter(newValue);
     if (paramID == Parameters::nameGainIn) GainIn.setTargetValue(Decibels::decibelsToGain(newValue));
     if (paramID == Parameters::nameGainOut) GainOut.setTargetValue(Decibels::decibelsToGain(newValue));

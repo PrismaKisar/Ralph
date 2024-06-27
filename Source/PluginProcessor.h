@@ -48,7 +48,10 @@ private:
     AudioBuffer<double> BCMod;
     ModulationControl BCModCtrl;
     
+    DownSample downSample;
+    
     void parameterChanged(const String& paramID, float newValue) override;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RalphAudioProcessor)
 };
+
