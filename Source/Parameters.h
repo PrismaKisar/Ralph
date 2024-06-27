@@ -8,6 +8,9 @@ namespace Parameters {
     static const float maxBitDepth = 24.0f;
     static const float minBitDepth = 2.0f;
     static const float modBitRange = 4.0f;
+    static const float maxSR = 44100.0f;
+    static const float minSR = 1000.0f;
+    static const float modSRRange = 5000.0f;
     static const float maxFreq = 60.0f;
     static const float minFreq = 0.05f;
     static const float minGain = -48.0f;
@@ -21,6 +24,9 @@ namespace Parameters {
     static const String nameAmountBC = "ABC";
     static const String nameWaveformBC = "MWBC";
     static const String nameBitCrush = "BC";
+    static const String nameFreqDS = "MFDS";
+    static const String nameAmountDS = "ADS";
+    static const String nameWaveformDS = "MWDS";
     static const String nameDownSample = "DS";
 
 
@@ -29,13 +35,17 @@ namespace Parameters {
     static const float defaultDryWet = 0.5f;
     static const float defaultFreq = 1.0f;
     static const float defaultAmount = 0.0f;
+    static const float defaultSR = 44100.0f;
     static const float defaultBitDepth = 24.0f;
     static const int defaultWaveform = 0;
 
     static AudioProcessorValueTreeState::ParameterLayout createParameterLayout() {
         std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameGainIn, 1), "Gain IN", NormalisableRange<float>(minGain, maxGain, 0.1f, 3.0f), defaultGain));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDownSample, 1), "DownSaample", NormalisableRange<float>(2000, 44100, 1, 1.0f), 44100));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDownSample, 1), "DownSample", NormalisableRange<float>(minSR, maxSR - modSRRange, 1, 1.0f), defaultSR));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqDS, 1), "LFO Frequency DownSample (Hz)", NormalisableRange<float>(minFreq, maxFreq, 0.1f, 0.2f), defaultFreq));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameAmountDS, 1), "LFO Amount DownSample (Hz)", NormalisableRange<float>(0.0f, modSRRange, 1.0f, 1.0f), defaultAmount));
+        parameters.push_back(std::make_unique<AudioParameterChoice>(ParameterID(nameWaveformDS, 1), "LFO Waveform DownSample", StringArray{"Sinusoid","Triangular","Saw Up","Saw Down","Square"}, defaultWaveform));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDryWet, 1), "Dry/Wet (%)", 0, 1, defaultDryWet));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameBitCrush, 1), "Bits", NormalisableRange<float>(minBitDepth, maxBitDepth - modBitRange, 0.001f, 0.4f), defaultBitDepth));
         parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqBC, 1), "LFO Frequency BitCrush (Hz)", NormalisableRange<float>(minFreq, maxFreq, 0.1f, 0.2f), defaultFreq));

@@ -9,7 +9,9 @@ RalphAudioProcessor::RalphAudioProcessor() :
     bitCrush(),
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
     BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount),
-    downSample()
+    downSample(),
+    lfoDS(Parameters::defaultFreq, Parameters::defaultWaveform),
+    DSModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount)
 {
     GainIn.setCurrentAndTargetValue(1.0f);
     GainOut.setCurrentAndTargetValue(1.0f);
@@ -26,12 +28,16 @@ void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     lfoBC.prepareToPlay(sampleRate);
     BCMod.setSize(2, samplesPerBlock);
     BCModCtrl.prepareToPlay(sampleRate);
+    lfoDS.prepareToPlay(sampleRate);
+    DSMod.setSize(2, samplesPerBlock);
+    DSModCtrl.prepareToPlay(sampleRate);
 }
 
 void RalphAudioProcessor::releaseResources() {
     drywetter.releaseResources();
     BCMod.setSize(0, 0);
     downSample.releaseResources();
+    DSMod.setSize(0, 0);
 }
 
 void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages) {
@@ -40,12 +46,16 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     
     GainIn.applyGain(buffer, numSamples);
 
+    
+    lfoDS.getNextAudioBlock(BCMod, numSamples);
+    DSModCtrl.processBlock(BCMod, numSamples);
     lfoBC.getNextAudioBlock(BCMod, numSamples);
     BCModCtrl.processBlock(BCMod, numSamples);
     
+    
     drywetter.copyDrySignal(buffer);
+    downSample.processBlock(buffer, DSMod);
     bitCrush.processBlock(buffer, BCMod);
-    downSample.processBlock(buffer);
     drywetter.mixDrySignal(buffer);
     
     GainOut.applyGain(buffer, numSamples);
@@ -53,7 +63,10 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
     if (paramID == Parameters::nameDryWet) drywetter.setDWRatio(newValue);
-    if (paramID == Parameters::nameDownSample) downSample.setTargetSampleRate(newValue);
+    if (paramID == Parameters::nameFreqDS) lfoDS.setFrequency(newValue);
+    if (paramID == Parameters::nameWaveformDS) lfoDS.setWaveform(roundToInt(newValue));
+    if (paramID == Parameters::nameAmountDS) DSModCtrl.setModAmount(newValue);
+    if (paramID == Parameters::nameDownSample) DSModCtrl.setParameter(newValue);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);

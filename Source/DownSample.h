@@ -9,7 +9,7 @@ public:
     
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
-    void processBlock(juce::AudioBuffer<float>& buffer);
+    void processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<double>& modulation);
     void setTargetSampleRate(float newValue);
     
 private:

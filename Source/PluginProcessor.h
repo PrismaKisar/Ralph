@@ -49,6 +49,9 @@ private:
     ModulationControl BCModCtrl;
     
     DownSample downSample;
+    Oscillator lfoDS;
+    AudioBuffer<double> DSMod;
+    ModulationControl DSModCtrl;
     
     void parameterChanged(const String& paramID, float newValue) override;
     

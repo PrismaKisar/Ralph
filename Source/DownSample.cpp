@@ -27,7 +27,7 @@ void DownSample::releaseResources()
     upsampledBuffer.setSize(1, 0);
 }
 
-void DownSample::processBlock(juce::AudioBuffer<float>& buffer)
+void DownSample::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<double>& modulation)
 {
     int numSamples = buffer.getNumSamples();
     int numChannels = buffer.getNumChannels();
