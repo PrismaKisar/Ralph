@@ -13,13 +13,11 @@ public:
     void setTargetSampleRate(float newValue);
     
 private:
-    AudioBuffer<float> downsampledBuffer;
-    AudioBuffer<float> upsampledBuffer;
+    juce::AudioBuffer<float> aliasingBuffer;
     
     double currentSampleRate;
     double targetSampleRate;
-    double downSamplingRatio;
-    double upSamplingRatio;
+    double ratio;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DownSample)
 };
