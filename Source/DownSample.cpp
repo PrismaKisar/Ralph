@@ -14,7 +14,7 @@ void DownSample::prepareToPlay(double sampleRate, int samplesPerBlock) {
 }
 
 void DownSample::releaseResources() {
-    aliasingBuffer.setSize(2, 0);
+    aliasingBuffer.setSize(0, 0);
 }
 
 void DownSample::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<double>& modulation) {
@@ -28,6 +28,7 @@ void DownSample::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffe
     
     for (int smp = 0; smp < numSamples; ++smp) {
         for (int ch = 0; ch < numChannels; ++ch) {
+            ratio = currentSampleRate / jmin(modData[jmin(ch, numModCh - 1)][smp], 44100.0);
             t = (++t >= ratio) ? 0 : t;
             aliasingData[ch][smp] = (t == 0) ? bufferData[ch][smp] : aliasingData[ch][smp - (smp > 0)];
             bufferData[ch][smp] = aliasingData[ch][smp];

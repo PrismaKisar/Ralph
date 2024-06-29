@@ -10,7 +10,8 @@ void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<
 
     for (int smp = 0; smp < numSamples; ++smp)
         for (int ch = 0; ch < numCh; ++ch)
-            bufferData[ch][smp] = crush(bufferData[ch][smp], modData[jmin(ch, numModCh - 1)][smp]);
+            bufferData[ch][smp] = crush(bufferData[ch][smp], jmin(modData[jmin(ch, numModCh - 1)][smp], 24.0)
+ );
 }
 
 float BitCrush::crush(float value, double bits) {

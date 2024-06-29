@@ -9,7 +9,7 @@ namespace Parameters {
     constexpr float modBitRange = 4.0f;
     constexpr float maxSR = 44100.0f;
     constexpr float minSR = 500.0f;
-    constexpr float modSRRange = 3000.0;
+    constexpr float modSRRange = 10000.0;
     constexpr float maxFreq = 60.0f;
     constexpr float minFreq = 0.05f;
     constexpr float minGain = -48.0f;
@@ -52,12 +52,12 @@ namespace Parameters {
         std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
 
         parameters.push_back(createFloatParameter(nameGainIn, "Gain IN", minGain, maxGain, defaultGain, 0.1f, 3.0f));
-        parameters.push_back(createFloatParameter(nameDownSample, "DownSample", minSR, maxSR - modSRRange, defaultSR, 1.0f, 1.0f));
+        parameters.push_back(createFloatParameter(nameDownSample, "DownSample", minSR, maxSR, defaultSR, 1.0f, 1.0f));
         parameters.push_back(createFloatParameter(nameFreqDS, "LFO Frequency DownSample (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
         parameters.push_back(createFloatParameter(nameAmountDS, "LFO Amount DownSample (Hz)", 0.0f, modSRRange, defaultAmount, 1.0f, 1.0f));
         parameters.push_back(createChoiceParameter(nameWaveformDS, "LFO Waveform DownSample", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square"}, defaultWaveform));
         parameters.push_back(createFloatParameter(nameDryWet, "Dry/Wet (%)", 0.0f, 1.0f, defaultDryWet, 0.01f, 1.0f));
-        parameters.push_back(createFloatParameter(nameBitCrush, "Bits", minBitDepth, maxBitDepth - modBitRange, defaultBitDepth, 0.001f, 0.4f));
+        parameters.push_back(createFloatParameter(nameBitCrush, "Bits", minBitDepth, maxBitDepth, defaultBitDepth, 0.001f, 0.4f));
         parameters.push_back(createFloatParameter(nameFreqBC, "LFO Frequency BitCrush (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
         parameters.push_back(createFloatParameter(nameAmountBC, "LFO Amount BitCrush (bits)", 0.0f, modBitRange, defaultAmount, 0.01f, 1.0f));
         parameters.push_back(createChoiceParameter(nameWaveformBC, "LFO Waveform BitCrush", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square"}, defaultWaveform));
