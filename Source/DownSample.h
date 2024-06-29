@@ -16,7 +16,6 @@ private:
     juce::AudioBuffer<float> aliasingBuffer;
     
     double currentSampleRate;
-    double targetSampleRate;
     double ratio;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DownSample)
