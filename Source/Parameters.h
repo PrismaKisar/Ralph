@@ -1,66 +1,77 @@
 #pragma once
 #include <JuceHeader.h>
 
-
 namespace Parameters {
 
     // CONSTANTS
-    static const float maxBitDepth = 24.0f;
-    static const float minBitDepth = 2.0f;
-    static const float modBitRange = 4.0f;
-    static const float maxSR = 44100.0f;
-    static const float minSR = 1000.0f;
-    static const float modSRRange = 5000.0f;
-    static const float maxFreq = 60.0f;
-    static const float minFreq = 0.05f;
-    static const float minGain = -48.0f;
-    static const float maxGain = 6.0f;
+    constexpr float maxBitDepth = 24.0f;
+    constexpr float minBitDepth = 2.0f;
+    constexpr float modBitRange = 4.0f;
+    constexpr float maxSR = 44100.0f;
+    constexpr float minSR = 1000.0f;
+    constexpr float modSRRange = 5000.0f;
+    constexpr float maxFreq = 60.0f;
+    constexpr float minFreq = 0.05f;
+    constexpr float minGain = -48.0f;
+    constexpr float maxGain = 6.0f;
 
     // PARAM IDs
-    static const String nameGainIn = "GIN";
-    static const String nameGainOut = "GOUT";
-    static const String nameDryWet = "DW";
-    static const String nameFreqBC = "MFBC";
-    static const String nameAmountBC = "ABC";
-    static const String nameWaveformBC = "MWBC";
-    static const String nameBitCrush = "BC";
-    static const String nameFreqDS = "MFDS";
-    static const String nameAmountDS = "ADS";
-    static const String nameWaveformDS = "MWDS";
-    static const String nameDownSample = "DS";
-
+    const juce::String nameGainIn = "GIN";
+    const juce::String nameGainOut = "GOUT";
+    const juce::String nameDryWet = "DW";
+    const juce::String nameFreqBC = "MFBC";
+    const juce::String nameAmountBC = "ABC";
+    const juce::String nameWaveformBC = "MWBC";
+    const juce::String nameBitCrush = "BC";
+    const juce::String nameFreqDS = "MFDS";
+    const juce::String nameAmountDS = "ADS";
+    const juce::String nameWaveformDS = "MWDS";
+    const juce::String nameDownSample = "DS";
 
     // PARAM DEFAULTS
-    static const float defaultGain = 0.0f;
-    static const float defaultDryWet = 0.5f;
-    static const float defaultFreq = 1.0f;
-    static const float defaultAmount = 0.0f;
-    static const float defaultSR = 44100.0f;
-    static const float defaultBitDepth = 24.0f;
-    static const int defaultWaveform = 0;
+    constexpr float defaultGain = 0.0f;
+    constexpr float defaultDryWet = 0.5f;
+    constexpr float defaultFreq = 1.0f;
+    constexpr float defaultAmount = 0.0f;
+    constexpr float defaultSR = 44100.0f;
+    constexpr float defaultBitDepth = 24.0f;
+    constexpr int defaultWaveform = 0;
 
-    static AudioProcessorValueTreeState::ParameterLayout createParameterLayout() {
-        std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameGainIn, 1), "Gain IN", NormalisableRange<float>(minGain, maxGain, 0.1f, 3.0f), defaultGain));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDownSample, 1), "DownSample", NormalisableRange<float>(minSR, maxSR - modSRRange, 1, 1.0f), defaultSR));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqDS, 1), "LFO Frequency DownSample (Hz)", NormalisableRange<float>(minFreq, maxFreq, 0.1f, 0.2f), defaultFreq));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameAmountDS, 1), "LFO Amount DownSample (Hz)", NormalisableRange<float>(0.0f, modSRRange, 1.0f, 1.0f), defaultAmount));
-        parameters.push_back(std::make_unique<AudioParameterChoice>(ParameterID(nameWaveformDS, 1), "LFO Waveform DownSample", StringArray{"Sinusoid","Triangular","Saw Up","Saw Down","Square"}, defaultWaveform));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameDryWet, 1), "Dry/Wet (%)", 0, 1, defaultDryWet));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameBitCrush, 1), "Bits", NormalisableRange<float>(minBitDepth, maxBitDepth - modBitRange, 0.001f, 0.4f), defaultBitDepth));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameFreqBC, 1), "LFO Frequency BitCrush (Hz)", NormalisableRange<float>(minFreq, maxFreq, 0.1f, 0.2f), defaultFreq));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameAmountBC, 1), "LFO Amount BitCrush (bits)", NormalisableRange<float>(0.0f, modBitRange, 0.01f, 1.0f), defaultAmount));
-        parameters.push_back(std::make_unique<AudioParameterChoice>(ParameterID(nameWaveformBC, 1), "LFO Waveform BitCrush", StringArray{"Sinusoid","Triangular","Saw Up","Saw Down","Square"}, defaultWaveform));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(ParameterID(nameGainOut, 1), "Gain OUT", NormalisableRange<float>(minGain, maxGain, 0.1f, 3.0f), defaultGain));
-       
+    // Helper function to create float parameters
+    std::unique_ptr<juce::RangedAudioParameter> createFloatParameter(const juce::String& id, const juce::String& name, float minValue, float maxValue, float defaultValue, float step = 0.1f, float skew = 1.0f) {
+        return std::make_unique<juce::AudioParameterFloat>(juce::ParameterID(id, 1), name, juce::NormalisableRange<float>(minValue, maxValue, step, skew), defaultValue);
+    }
+
+    // Helper function to create choice parameters
+    std::unique_ptr<juce::RangedAudioParameter> createChoiceParameter(const juce::String& id, const juce::String& name, const juce::StringArray& choices, int defaultChoice) {
+        return std::make_unique<juce::AudioParameterChoice>(juce::ParameterID(id, 1), name, choices, defaultChoice);
+    }
+
+    // Create parameter layout
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout() {
+        std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
+
+        parameters.push_back(createFloatParameter(nameGainIn, "Gain IN", minGain, maxGain, defaultGain, 0.1f, 3.0f));
+        parameters.push_back(createFloatParameter(nameDownSample, "DownSample", minSR, maxSR - modSRRange, defaultSR, 1.0f, 1.0f));
+        parameters.push_back(createFloatParameter(nameFreqDS, "LFO Frequency DownSample (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
+        parameters.push_back(createFloatParameter(nameAmountDS, "LFO Amount DownSample (Hz)", 0.0f, modSRRange, defaultAmount, 1.0f, 1.0f));
+        parameters.push_back(createChoiceParameter(nameWaveformDS, "LFO Waveform DownSample", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square"}, defaultWaveform));
+        parameters.push_back(createFloatParameter(nameDryWet, "Dry/Wet (%)", 0.0f, 1.0f, defaultDryWet, 0.01f, 1.0f));
+        parameters.push_back(createFloatParameter(nameBitCrush, "Bits", minBitDepth, maxBitDepth - modBitRange, defaultBitDepth, 0.001f, 0.4f));
+        parameters.push_back(createFloatParameter(nameFreqBC, "LFO Frequency BitCrush (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
+        parameters.push_back(createFloatParameter(nameAmountBC, "LFO Amount BitCrush (bits)", 0.0f, modBitRange, defaultAmount, 0.01f, 1.0f));
+        parameters.push_back(createChoiceParameter(nameWaveformBC, "LFO Waveform BitCrush", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square"}, defaultWaveform));
+        parameters.push_back(createFloatParameter(nameGainOut, "Gain OUT", minGain, maxGain, defaultGain, 0.1f, 3.0f));
+
         return { parameters.begin(), parameters.end() };
     }
 
-    static void addListenerToAllParameters(AudioProcessorValueTreeState& valueTreeState, AudioProcessorValueTreeState::Listener* listener) {
-        std::unique_ptr<XmlElement> xml(valueTreeState.copyState().createXml());
+    // Add listeners to all parameters
+    void addListenerToAllParameters(juce::AudioProcessorValueTreeState& valueTreeState, juce::AudioProcessorValueTreeState::Listener* listener) {
+        std::unique_ptr<juce::XmlElement> xml(valueTreeState.copyState().createXml());
 
         for (auto* element : xml->getChildWithTagNameIterator("PARAM")) {
-            const String& id = element->getStringAttribute("id");
+            const juce::String& id = element->getStringAttribute("id");
             valueTreeState.addParameterListener(id, listener);
         }
     }
