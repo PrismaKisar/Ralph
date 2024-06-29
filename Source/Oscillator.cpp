@@ -1,10 +1,9 @@
 #include "Oscillator.h"
 
-Oscillator::Oscillator(double defaultFrequency, int defaultWaveform) :
-waveform(defaultWaveform),
-currentPhase(0),
-phaseIncrement(0),
-samplePeriod(0)
+Oscillator::Oscillator(double defaultFrequency, int defaultWaveform)
+    : waveform(defaultWaveform),
+      currentPhase(0.0),
+      samplePeriod(0.0)
 {
     frequency.setTargetValue(defaultFrequency);
 }
@@ -19,55 +18,51 @@ void Oscillator::setFrequency(double newValue) {
     frequency.setTargetValue(newValue);
 }
 
-
 void Oscillator::setWaveform(int newValue) {
     waveform = newValue;
 }
 
-void Oscillator::getNextAudioBlock(AudioBuffer<double>& buffer, const int numsamples) {
-    const int numCh = buffer.getNumChannels();
+void Oscillator::getNextAudioBlock(AudioBuffer<double>& buffer, int numSamples) {
+    const int numChannels = buffer.getNumChannels();
     auto data = buffer.getArrayOfWritePointers();
 
-    for (int smp = 0; smp < numsamples; ++smp) {
+    for (int smp = 0; smp < numSamples; ++smp) {
         const double sampleValue = getNextAudioSample();
-        for (int ch = 0; ch < numCh; ++ch)
+        for (int ch = 0; ch < numChannels; ++ch) {
             data[ch][smp] = sampleValue;
+        }
     }
 }
 
 float Oscillator::getNextAudioSample() {
-    auto sampleValue = 0.0;
+    double sampleValue = 0.0;
 
     switch (waveform) {
-    case 0: // Sinusoidale
-        sampleValue = sin(MathConstants<double>::twoPi * currentPhase);
-        break;
-    case 1: // Triangular
-        sampleValue = 4.0 * abs(currentPhase - 0.5) - 1.0;
-        break;
-    case 2: // Saw UP
-        sampleValue = 2.0 * currentPhase - 1.0;
-        break;
-    case 3: // Saw down
-        sampleValue = -2.0 * currentPhase + 1.0;
-        break;
-    case 4: // Square
-        sampleValue = (currentPhase > 0.5) - (currentPhase < 0.5);
-        break;
-    default:
-        jassertfalse;
-        break;
+        case SINUSOID:
+            sampleValue = sin(MathConstants<double>::twoPi * currentPhase);
+            break;
+        case TRIANGULAR:
+            sampleValue = 4.0 * fabs(currentPhase - 0.5) - 1.0;
+            break;
+        case SAW_UP:
+            sampleValue = 2.0 * currentPhase - 1.0;
+            break;
+        case SAW_DOWN:
+            sampleValue = -2.0 * currentPhase + 1.0;
+            break;
+        case SQUARE:
+            sampleValue = (currentPhase > 0.5) ? 1.0 : -1.0;
+            break;
+        default:
+            jassertfalse;
+            break;
     }
 
-    phaseIncrement = frequency.getNextValue() * samplePeriod;
+    double phaseIncrement = frequency.getNextValue() * samplePeriod;
+    
     currentPhase += phaseIncrement;
-    currentPhase -= static_cast<int>(currentPhase);
-
-    return sampleValue;
+    
+    if (currentPhase >= 1.0) currentPhase -= 1.0;
+    
+    return static_cast<float>(sampleValue);
 }
-
-
-
-
-
-
