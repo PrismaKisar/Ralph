@@ -67,7 +67,6 @@ void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue
     if (paramID == Parameters::nameWaveformDS) lfoDS.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountDS) DSModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameDownSample) DSModCtrl.setParameter(newValue);
-    //if (paramID == Parameters::nameDownSample) downSample.setTargetSampleRate(newValue);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);

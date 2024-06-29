@@ -6,15 +6,16 @@
 
 class StereoFilter {
 public:
-    StereoFilter(double defaultFrequency = 1000.0);
+    StereoFilter(double defaultFrequency = 20000.0);
     ~StereoFilter() {}
 
     void prepareToPlay(double sampleRate);
     void processBlock(AudioBuffer<float>& buffer, const int numSamples);
     void setFrequency(const double newValue);
-    void reset();
     
 private:
+    void reset();
+
     double frequency;
     double sampleRate = 48000.0;
 

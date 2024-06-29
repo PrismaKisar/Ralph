@@ -14,18 +14,19 @@ void StereoFilter::prepareToPlay(double sampleRate) {
 }
 
 void StereoFilter::processBlock(AudioBuffer<float>& buffer, const int numSamples) {
-    dsp::AudioBlock<float> block(buffer.getArrayOfWritePointers(), buffer.getNumChannels(), numSamples);
+    dsp::AudioBlock<float> block(buffer);
     
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch) {
         dsp::AudioBlock<float> chBlock = block.getSingleChannelBlock(ch);
         dsp::ProcessContextReplacing<float> context(chBlock);
         tptFilters.getUnchecked(ch)->process(context);
     }
-
 }
 
 void StereoFilter::setFrequency(const double newValue) {
     frequency = jmin(newValue, sampleRate * 0.499);
+    for (int f = 0; f < tptFilters.size(); ++f)
+            tptFilters.getUnchecked(f)->setCutoffFrequency(frequency);
 }
 
 void StereoFilter::reset() {

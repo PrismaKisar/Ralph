@@ -11,7 +11,7 @@ void DownSample::prepareToPlay(double sampleRate, int samplesPerBlock) {
     aliasingBuffer.setSize(2, samplesPerBlock);
     aliasingBuffer.clear();
     ratio = currentSampleRate;
-    filter.reset();
+    filter.prepareToPlay(sampleRate);
 }
 
 void DownSample::releaseResources() {
@@ -26,26 +26,21 @@ void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& m
     auto modData = modulation.getArrayOfWritePointers();
     auto numModCh = modulation.getNumChannels();
     int t = 0;
-
-    int samplesPerUpdate = static_cast<int>(numSamples * 0.03125);
-    int samplesSinceUpdate = 0;
+    auto targetSampleRate = 44100;
 
     for (int smp = 0; smp < numSamples; ++smp) {
         for (int ch = 0; ch < numChannels; ++ch) {
-            if (samplesSinceUpdate >= samplesPerUpdate) {
-                auto targetSampleRate = jmin(modData[jmin(ch, numModCh - 1)][smp], 44100.0);
-                ratio = currentSampleRate / targetSampleRate;
-                filter.setFrequency(targetSampleRate / 2 - 1);
-                samplesSinceUpdate = 0;
-            }
-
+            
+            targetSampleRate = jmin(modData[jmin(ch, numModCh - 1)][smp], 44100.0);
+            ratio = currentSampleRate / targetSampleRate;
+            filter.setFrequency(targetSampleRate * 0.5  - 1);
+            
             t = (++t >= ratio) ? 0 : t;
             aliasingData[ch][smp] = (t == 0) ? bufferData[ch][smp] : aliasingData[ch][smp - (smp > 0)];
-            bufferData[ch][smp] = aliasingData[ch][smp];
+            bufferData[ch][smp] += aliasingData[ch][smp];
         }
-        
-        samplesSinceUpdate++;
     }
+    
     filter.processBlock(buffer, numSamples);
 }
 
