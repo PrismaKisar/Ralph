@@ -2,12 +2,13 @@
 
 #include <JuceHeader.h>
 
-#define DEFAULT_DRY_WET 0.5
+constexpr double DEFAULT_DRY_WET = 0.5;
+constexpr double SMOOTHING_TIME = 0.01;
 
 class DryWet {
 public:
-    DryWet(double defaultDW = DEFAULT_DRY_WET) : dwRatio(defaultDW) {}
-    ~DryWet() {}
+    explicit DryWet(double defaultDW = DEFAULT_DRY_WET) : dwRatio(defaultDW) {}
+    ~DryWet() = default;
 
     void prepareToPlay(double sr, int maxBlockSize);
     void releaseResources();

@@ -4,8 +4,8 @@ void DryWet::prepareToPlay(double sr, int maxBlockSize) {
     drySignal.setSize(2, maxBlockSize);
     drySignal.clear();
 
-    dryLevel.reset(sr, 0.01);
-    wetLevel.reset(sr, 0.01);
+    dryLevel.reset(sr, SMOOTHING_TIME);
+    wetLevel.reset(sr, SMOOTHING_TIME);
 
     updateState();
 }
@@ -15,22 +15,24 @@ void DryWet::releaseResources() {
 }
 
 void DryWet::copyDrySignal(AudioBuffer<float>& sourceBuffer) {
-    auto numCh = sourceBuffer.getNumChannels();
-    auto numSamples = sourceBuffer.getNumSamples();
+    const int numChannels = sourceBuffer.getNumChannels();
+    const int numSamples = sourceBuffer.getNumSamples();
 
-    for (int ch = 0; ch < numCh; ++ch)
+    for (int ch = 0; ch < numChannels; ++ch) {
         drySignal.copyFrom(ch, 0, sourceBuffer, ch, 0, numSamples);
+    }
 }
 
 void DryWet::mixDrySignal(AudioBuffer<float>& destinationBuffer) {
-    auto numCh = destinationBuffer.getNumChannels();
-    auto numSamples = destinationBuffer.getNumSamples();
+    const int numChannels = destinationBuffer.getNumChannels();
+    const int numSamples = destinationBuffer.getNumSamples();
     
     dryLevel.applyGain(drySignal, numSamples);
     wetLevel.applyGain(destinationBuffer, numSamples);
 
-    for (int ch = 0; ch < numCh; ++ch)
+    for (int ch = 0; ch < numChannels; ++ch) {
         destinationBuffer.addFrom(ch, 0, drySignal, ch, 0, numSamples);
+    }
 }
 
 void DryWet::setDWRatio(float newValue) {
@@ -39,7 +41,6 @@ void DryWet::setDWRatio(float newValue) {
 }
 
 void DryWet::updateState() {
-    dryLevel.setTargetValue(sqrt(1.0 - dwRatio));
+    dryLevel.setTargetValue(sqrt(1.0f - dwRatio));
     wetLevel.setTargetValue(sqrt(dwRatio));
 }
-
