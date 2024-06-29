@@ -1,8 +1,8 @@
 #include "ModulationControl.h"
 
-ModulationControl::ModulationControl(double defaultParameter, double defaultModAmount) {
-    parameter.setCurrentAndTargetValue(defaultParameter);
-    modAmount.setCurrentAndTargetValue(defaultModAmount);
+ModulationControl::ModulationControl(double defaultParameter, double defaultModAmount)
+    : parameter(defaultParameter), modAmount(defaultModAmount)
+{
 }
 
 void ModulationControl::prepareToPlay(double sampleRate) {
@@ -10,34 +10,37 @@ void ModulationControl::prepareToPlay(double sampleRate) {
     modAmount.reset(sampleRate, 0.02);
 }
 
-void ModulationControl::setModAmount(const double newValue) {
+void ModulationControl::setModAmount(double newValue) {
     modAmount.setTargetValue(newValue);
 }
 
-void ModulationControl::setParameter(const double newValue) {
+void ModulationControl::setParameter(double newValue) {
     parameter.setTargetValue(newValue);
 }
 
-void ModulationControl::processBlock(AudioBuffer<double>& buffer, const int numSamples) {
+void ModulationControl::processBlock(AudioBuffer<double>& buffer, int numSamples) {
     auto data = buffer.getArrayOfWritePointers();
-    const auto numCh = buffer.getNumChannels();
+    const int numChannels = buffer.getNumChannels();
 
-    // Scalo la modulazione tra 0 e 1
-    for (int ch = 0; ch < numCh; ++ch) {
+    // Scale modulation between 0 and 1
+    for (int ch = 0; ch < numChannels; ++ch) {
         FloatVectorOperations::add(data[ch], 1.0, numSamples);
         FloatVectorOperations::multiply(data[ch], 0.5, numSamples);
     }
 
-    // Scalo la modulazione in accordo con mod amount
+    // Scale modulation according to mod amount
     modAmount.applyGain(buffer, numSamples);
 
-    // Sommo modulazione e parametro
+    // Add modulation and parameter
     if (parameter.isSmoothing()) {
-        for (int smp = 0; smp < numSamples; ++smp)
-            for (int ch = 0; ch < numCh; ++ch)
-                data[ch][smp] += ch ? parameter.getCurrentValue() : parameter.getNextValue();
+        for (int smp = 0; smp < numSamples; ++smp) {
+            double currentParameter = parameter.getNextValue();
+            for (int ch = 0; ch < numChannels; ++ch)
+                data[ch][smp] += currentParameter;
+        }
     } else {
-        for (int ch = 0; ch < numCh; ++ch)
-            FloatVectorOperations::add(data[ch], parameter.getCurrentValue(), numSamples);
+        double currentParameter = parameter.getCurrentValue();
+        for (int ch = 0; ch < numChannels; ++ch)
+            FloatVectorOperations::add(data[ch], currentParameter, numSamples);
     }
 }

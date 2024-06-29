@@ -4,13 +4,13 @@
 
 class ModulationControl {
 public:
-    ModulationControl(const double defaultParameter = 0.0, const double defaultModAmount = 0.0);
-    ~ModulationControl() {}
+    ModulationControl(double defaultParameter = 0.0, double defaultModAmount = 0.0);
+    ~ModulationControl() = default;
 
     void prepareToPlay(double sampleRate);
-    void setModAmount(const double newValue);
-    void setParameter(const double newValue);
-    void processBlock(AudioBuffer<double>& buffer, const int numSamples);
+    void setModAmount(double newValue);
+    void setParameter(double newValue);
+    void processBlock(AudioBuffer<double>& buffer, int numSamples);
 
 private:
     SmoothedValue<double, ValueSmoothingTypes::Linear> parameter;
