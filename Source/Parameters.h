@@ -8,8 +8,8 @@ namespace Parameters {
     constexpr float minBitDepth = 2.0f;
     constexpr float modBitRange = 4.0f;
     constexpr float maxSR = 44100.0f;
-    constexpr float minSR = 1000.0f;
-    constexpr float modSRRange = 5000.0f;
+    constexpr float minSR = 500.0f;
+    constexpr float modSRRange = 3000.0;
     constexpr float maxFreq = 60.0f;
     constexpr float minFreq = 0.05f;
     constexpr float minGain = -48.0f;
