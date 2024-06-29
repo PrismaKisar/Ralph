@@ -13,6 +13,10 @@
         <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       </GROUP>
       <GROUP id="{1535BFAE-7872-CEB1-A94D-10B68BB54F9C}" name="DSP">
+        <GROUP id="{A66DC1DA-E0BE-F29D-50F6-56B84BEA6CB3}" name="Filtering">
+          <FILE id="fEWHxn" name="Filters.cpp" compile="1" resource="0" file="Source/Filters.cpp"/>
+          <FILE id="jJC4D6" name="Filters.h" compile="0" resource="0" file="Source/Filters.h"/>
+        </GROUP>
         <GROUP id="{38312ACE-5437-6035-8826-801E09F33B4E}" name="Crushing">
           <FILE id="zt1aeM" name="BitCrush.cpp" compile="1" resource="0" file="Source/BitCrush.cpp"/>
           <FILE id="MDk6W5" name="BitCrush.h" compile="0" resource="0" file="Source/BitCrush.h"/>
@@ -51,6 +55,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -76,6 +81,7 @@
         <MODULEPATH id="juce_graphics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
