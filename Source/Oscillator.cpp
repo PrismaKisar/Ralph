@@ -1,9 +1,12 @@
 #include "Oscillator.h"
 
-Oscillator::Oscillator(double defaultFrequency, int defaultWaveform)
-    : waveform(defaultWaveform),
-      currentPhase(0.0),
-      samplePeriod(0.0)
+Oscillator::Oscillator(double defaultFrequency, int defaultWaveform) :
+    waveform(defaultWaveform),
+    currentPhase(0.0),
+    samplePeriod(0.0),
+    prevValue(0.0f),
+    gen(std::random_device{}())
+    
 {
     frequency.setTargetValue(defaultFrequency);
 }
@@ -53,16 +56,26 @@ float Oscillator::getNextAudioSample() {
         case SQUARE:
             sampleValue = (currentPhase > 0.5) ? 1.0 : -1.0;
             break;
+        case SAMPLE_AND_HOLD:
+            if (newCycle) {
+                sampleValue = dis(gen);
+                prevValue = sampleValue;
+                newCycle = false;
+            } else {
+                sampleValue = prevValue;
+            }
+            break;
         default:
             jassertfalse;
             break;
     }
-
+    
+    
     double phaseIncrement = frequency.getNextValue() * samplePeriod;
-    
     currentPhase += phaseIncrement;
-    
-    if (currentPhase >= 1.0) currentPhase -= 1.0;
-    
+    if (currentPhase >= 1.0) {
+        currentPhase -= 1.0;
+        newCycle = true;
+    }
     return static_cast<float>(sampleValue);
 }
