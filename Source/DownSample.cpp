@@ -11,7 +11,6 @@ void DownSample::prepareToPlay(double sampleRate, int samplesPerBlock) {
     aliasingBuffer.setSize(2, samplesPerBlock);
     aliasingBuffer.clear();
     ratio = currentSampleRate;
-    filter.prepareToPlay(sampleRate);
 }
 
 void DownSample::releaseResources() {
@@ -30,17 +29,16 @@ void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& m
 
     for (int smp = 0; smp < numSamples; ++smp) {
         for (int ch = 0; ch < numChannels; ++ch) {
-            
             targetSampleRate = jmin(modData[jmin(ch, numModCh - 1)][smp], 44100.0);
             ratio = currentSampleRate / targetSampleRate;
-            filter.setFrequency(targetSampleRate * 0.5  - 1);
             
-            t = (++t >= ratio) ? 0 : t;
             aliasingData[ch][smp] = (t == 0) ? bufferData[ch][smp] : aliasingData[ch][smp - (smp > 0)];
             bufferData[ch][smp] += aliasingData[ch][smp];
         }
+
+        t++;
+        if (t >= ratio) t = 0;
     }
-    
-    filter.processBlock(buffer, numSamples);
 }
+
 

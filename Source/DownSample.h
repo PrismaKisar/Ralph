@@ -1,7 +1,6 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "Filters.h"
 
 class DownSample {
 public:
@@ -15,7 +14,6 @@ public:
     
 private:
     AudioBuffer<float> aliasingBuffer;
-    StereoFilter filter;
     
     double currentSampleRate;
     double ratio;
