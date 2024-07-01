@@ -6,8 +6,9 @@
   <MAINGROUP id="j9KUYh" name="Ralph">
     <GROUP id="{6D167E0B-6DFE-3963-20D0-F27937391CCF}" name="Source">
       <GROUP id="{3B174EC7-8782-68D5-E787-6E618ED09C61}" name="GUI">
-        <FILE id="HoVFAO" name="GUI.cpp" compile="1" resource="0" file="Source/GUI.cpp"/>
-        <FILE id="dmeULc" name="GUI.h" compile="0" resource="0" file="Source/GUI.h"/>
+        <GROUP id="{E7406A7B-08E0-4ADF-1546-FC9A4DC253DF}" name="Images">
+          <FILE id="kaNAMO" name="texture.jpg" compile="0" resource="1" file="Source/texture.jpg"/>
+        </GROUP>
         <FILE id="vfqtOH" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
