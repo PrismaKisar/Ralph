@@ -22,6 +22,10 @@ public:
 private:
     RalphAudioProcessor& audioProcessor;
     Image backgroundImage;
+    Image ralphWrite;
+    Image bitCrushWrite;
+    Image downSampleWrite;
+    Image screwImage;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RalphAudioProcessorEditor)
 };
