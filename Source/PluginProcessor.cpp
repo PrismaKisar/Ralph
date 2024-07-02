@@ -5,7 +5,6 @@
 
 RalphAudioProcessor::RalphAudioProcessor() :
     parameters(*this, nullptr, "PARAMS", Parameters::createParameterLayout()),
-    drywetter(Parameters::defaultDryWet),
     bitCrush(),
     lfoBC(Parameters::defaultFreq, Parameters::defaultWaveform),
     BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount),
@@ -21,10 +20,13 @@ RalphAudioProcessor::RalphAudioProcessor() :
 RalphAudioProcessor::~RalphAudioProcessor() {}
 
 void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock) {
+    auto numCh = jmax(getTotalNumOutputChannels(), getTotalNumInputChannels());
+    dsp::ProcessSpec spec {sampleRate, (uint32)samplesPerBlock, (uint32)numCh};
+    bitCrush.prepare(spec);
     GainIn.reset(sampleRate, 0.02);
     GainOut.reset(sampleRate, 0.02);
-    drywetter.prepareToPlay(sampleRate, samplesPerBlock);
-    downSample.prepareToPlay(sampleRate, samplesPerBlock);
+
+    downSample.prepareToPlay(sampleRate, samplesPerBlock, spec);
     lfoBC.prepareToPlay(sampleRate);
     BCMod.setSize(2, samplesPerBlock);
     BCModCtrl.prepareToPlay(sampleRate);
@@ -34,7 +36,6 @@ void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 }
 
 void RalphAudioProcessor::releaseResources() {
-    drywetter.releaseResources();
     BCMod.setSize(0, 0);
     downSample.releaseResources();
     DSMod.setSize(0, 0);
@@ -46,27 +47,24 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     
     GainIn.applyGain(buffer, numSamples);
 
-    
     lfoDS.getNextAudioBlock(DSMod, numSamples);
     DSModCtrl.processBlock(DSMod, numSamples);
     lfoBC.getNextAudioBlock(BCMod, numSamples);
     BCModCtrl.processBlock(BCMod, numSamples);
     
-    
-    drywetter.copyDrySignal(buffer);
     bitCrush.processBlock(buffer, BCMod);
     downSample.processBlock(buffer, DSMod);
-    drywetter.mixDrySignal(buffer);
     
     GainOut.applyGain(buffer, numSamples);
 }
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
-    if (paramID == Parameters::nameDryWet) drywetter.setDWRatio(newValue);
+    if (paramID == Parameters::nameDryWetDS) downSample.setDryWet(newValue);
     if (paramID == Parameters::nameFreqDS) lfoDS.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformDS) lfoDS.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountDS) DSModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameDownSample) DSModCtrl.setParameter(newValue);
+    if (paramID == Parameters::nameDryWetBC) bitCrush.setDryWet(newValue);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);

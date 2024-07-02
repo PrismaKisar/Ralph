@@ -18,7 +18,7 @@ public:
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     juce::AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override { return true; }
+    bool hasEditor() const override { return false; }
 
     const juce::String getName() const override { return JucePlugin_Name; }
 
@@ -41,7 +41,6 @@ private:
     
     SmoothedValue<float, ValueSmoothingTypes::Linear> GainIn;
     SmoothedValue<float, ValueSmoothingTypes::Linear> GainOut;
-    DryWet drywetter;
     
     BitCrush bitCrush;
     Oscillator lfoBC;

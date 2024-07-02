@@ -2,15 +2,17 @@
 #include "DownSample.h"
 
 DownSample::DownSample()
-    : currentSampleRate(44100.0) {}
+    : currentSampleRate(44100.0) 
+{
+    dryWet.setMixingRule(dsp::DryWetMixingRule::sin3dB);
+}
 
-DownSample::~DownSample() {}
-
-void DownSample::prepareToPlay(double sampleRate, int samplesPerBlock) {
+void DownSample::prepareToPlay(double sampleRate, int samplesPerBlock, const dsp::ProcessSpec& spec) {
     currentSampleRate = sampleRate;
     aliasingBuffer.setSize(2, samplesPerBlock);
     aliasingBuffer.clear();
     ratio = currentSampleRate;
+    dryWet.prepare(spec);
 }
 
 void DownSample::releaseResources() {
@@ -18,6 +20,9 @@ void DownSample::releaseResources() {
 }
 
 void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& modulation) {
+    dsp::AudioBlock<float> inputBlock(buffer);
+    dryWet.pushDrySamples(inputBlock);
+    
     int numSamples = buffer.getNumSamples();
     int numChannels = buffer.getNumChannels();
     auto bufferData = buffer.getArrayOfWritePointers();
@@ -39,6 +44,12 @@ void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& m
         t++;
         if (t >= ratio) t = 0;
     }
+    
+    dsp::AudioBlock<float> outputBlock(buffer);
+    dryWet.mixWetSamples(outputBlock);
 }
 
+void DownSample::setDryWet(float newValue) {
+    dryWet.setWetMixProportion(newValue);
+}
 

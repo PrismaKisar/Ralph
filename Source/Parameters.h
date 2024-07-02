@@ -18,11 +18,12 @@ namespace Parameters {
     // PARAM IDs
     const juce::String nameGainIn = "GIN";
     const juce::String nameGainOut = "GOUT";
-    const juce::String nameDryWet = "DW";
+    const juce::String nameDryWetBC = "DWBC";
     const juce::String nameFreqBC = "MFBC";
     const juce::String nameAmountBC = "ABC";
     const juce::String nameWaveformBC = "MWBC";
     const juce::String nameBitCrush = "BC";
+    const juce::String nameDryWetDS = "DWDS";
     const juce::String nameFreqDS = "MFDS";
     const juce::String nameAmountDS = "ADS";
     const juce::String nameWaveformDS = "MWDS";
@@ -52,11 +53,12 @@ namespace Parameters {
         std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
 
         parameters.push_back(createFloatParameter(nameGainIn, "Gain IN", minGain, maxGain, defaultGain, 0.1f, 3.0f));
+        parameters.push_back(createFloatParameter(nameDryWetDS, "Dry/Wet DS (%) ", 0.0f, 1.0f, defaultDryWet, 0.01f, 1.0f));
         parameters.push_back(createFloatParameter(nameDownSample, "DownSample", minSR, maxSR, defaultSR, 1.0f, 0.2f));
         parameters.push_back(createFloatParameter(nameFreqDS, "LFO Frequency DownSample (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
         parameters.push_back(createFloatParameter(nameAmountDS, "LFO Amount DownSample (Hz)", 0.0f, modSRRange, defaultAmount, 1.0f, 1.0f));
         parameters.push_back(createChoiceParameter(nameWaveformDS, "LFO Waveform DownSample", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square", "Sample and Hold"}, defaultWaveform));
-        parameters.push_back(createFloatParameter(nameDryWet, "Dry/Wet (%)", 0.0f, 1.0f, defaultDryWet, 0.01f, 1.0f));
+        parameters.push_back(createFloatParameter(nameDryWetBC, "Dry/Wet BC (%)", 0.0f, 1.0f, defaultDryWet, 0.01f, 1.0f));
         parameters.push_back(createFloatParameter(nameBitCrush, "Bits", minBitDepth, maxBitDepth, defaultBitDepth, 0.001f, 0.4f));
         parameters.push_back(createFloatParameter(nameFreqBC, "LFO Frequency BitCrush (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
         parameters.push_back(createFloatParameter(nameAmountBC, "LFO Amount BitCrush (bits)", 0.0f, modBitRange, defaultAmount, 0.01f, 1.0f));
