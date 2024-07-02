@@ -25,38 +25,36 @@ private:
         
     Slider gainINSlider;
     Slider gainOUTSlider;
+    
+    Slider BitCrushSlider;
     Slider AmountBCSlider;
     Slider FreqBCSlider;
     Slider DryWetBCSlider;
     Slider WaveformBCSlider;
+    
+    Slider DownSampleSlider;
     Slider DryWetDSSlider;
     Slider FreqDSSlider;
     Slider AmountDSSlider;
     Slider WaveformDSSlider;
-
-    /*
-    Slider BitCrushSlider;
-    Slider DownSampleSlider;
-     */
     
     std::unique_ptr<SliderAttachment> gainINAttachment;
     std::unique_ptr<SliderAttachment> gainOUTAttachment;
+    
+    std::unique_ptr<SliderAttachment> BitCrushAttachment;
     std::unique_ptr<SliderAttachment> AmountBCAttachment;
     std::unique_ptr<SliderAttachment> FreqBCAttachment;
     std::unique_ptr<SliderAttachment> DryWetBCAttachment;
     std::unique_ptr<SliderAttachment> WaveformBCAttachment;
+    
+    std::unique_ptr<SliderAttachment> DownSampleAttachment;
     std::unique_ptr<SliderAttachment> DryWetDSAttachment;
     std::unique_ptr<SliderAttachment> FreqDSAttachment;
     std::unique_ptr<SliderAttachment> AmountDSAttachment;
     std::unique_ptr<SliderAttachment> WaveformDSAttachment;
-
-    /*
-    
-    std::unique_ptr<SliderAttachment> BitCrushAttachment;
-    std::unique_ptr<SliderAttachment> DownSampleAttachment;
-     */
     
     void setupRotarySlider(Slider& slider, int x, int y, int w, int h);
+    void setupHorizontalSlider(Slider& slider, int x, int y, int w, int h);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RalphAudioProcessorEditor)
 };

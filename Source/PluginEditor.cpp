@@ -21,39 +21,33 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     setupRotarySlider(gainINSlider, 5, 490, 70, 70);
     setupRotarySlider(gainOUTSlider, 725, 490, 70, 70);
 
+    setupHorizontalSlider(BitCrushSlider, 120, 230, 240, 70);
     setupRotarySlider(AmountBCSlider, 120, 310, 120, 120);
     setupRotarySlider(FreqBCSlider, 250, 320, 100, 100);
     setupRotarySlider(WaveformBCSlider, 130, 430, 100, 100);
     setupRotarySlider(DryWetBCSlider, 240, 420, 120, 120);
     
+    setupHorizontalSlider(DownSampleSlider, 440, 230, 240, 70);
     setupRotarySlider(AmountDSSlider, 440, 310, 120, 120);
     setupRotarySlider(FreqDSSlider, 570, 320, 100, 100);
     setupRotarySlider(WaveformDSSlider, 450, 430, 100, 100);
     setupRotarySlider(DryWetDSSlider, 560, 420, 120, 120);
     
-    /*
-    BitCrushSlider;
-    DownSampleSlider;
-     */
-    
     
     gainINAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainIn, gainINSlider));
     gainOUTAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainOut, gainOUTSlider));
     
+    BitCrushAttachment.reset(new SliderAttachment(parameters, Parameters::nameBitCrush, BitCrushSlider));
     AmountBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameAmountBC, AmountBCSlider));
     FreqBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameFreqBC, FreqBCSlider));
     DryWetBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameDryWetBC, DryWetBCSlider));
     WaveformBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameWaveformBC, WaveformBCSlider));
     
+    DownSampleAttachment.reset(new SliderAttachment(parameters, Parameters::nameDownSample, DownSampleSlider));
     DryWetDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameDryWetDS, DryWetDSSlider));
     FreqDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameFreqDS, FreqDSSlider));
     AmountDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameAmountDS, AmountDSSlider));
     WaveformDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameWaveformDS, WaveformDSSlider));
-
-    /*
-    BitCrushAttachment
-    DownSampleAttachment
-     */
 }
 
 RalphAudioProcessorEditor::~RalphAudioProcessorEditor() {}
@@ -65,8 +59,8 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.fillAll();
 
     // macro-section
-    Rectangle<float> bitCrushRectagle(100, 150, 280, 400);
-    Rectangle<float> downSampleRectagle(420, 150, 280, 400);
+    Rectangle<float> bitCrushRectagle(100, 130, 280, 400);
+    Rectangle<float> downSampleRectagle(420, 130, 280, 400);
     g.setColour(juce::Colour(DARK_GRAY));
     g.fillRoundedRectangle(bitCrushRectagle, 10);
     g.fillRoundedRectangle(downSampleRectagle, 10);
@@ -97,9 +91,9 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.drawImageWithin(screwImage, 10, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
     
     // texts
-    g.drawImageWithin(ralphWrite, 130, 10, 280, 130, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(bitCrushWrite, 130, 170, 210, 60, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(downSampleWrite, 450, 180, 210, 60, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(downSampleWrite, 450, 160, 210, 60, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphAudioProcessorEditor::resized() {}
@@ -107,6 +101,13 @@ void RalphAudioProcessorEditor::resized() {}
 
 void RalphAudioProcessorEditor::setupRotarySlider(Slider& slider, int x, int y, int w, int h) {
     slider.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
+    slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
+    addAndMakeVisible(&slider);
+    slider.setBounds(x, y, w, h);
+}
+
+void RalphAudioProcessorEditor::setupHorizontalSlider(Slider& slider, int x, int y, int w, int h) {
+    slider.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
     slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);

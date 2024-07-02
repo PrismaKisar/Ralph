@@ -33,6 +33,7 @@
           <FILE id="CnL6pe" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
         </GROUP>
         <GROUP id="{CB600F85-AA86-DA64-DDD4-7D88A3571C1F}" name="Processor">
+          <FILE id="BN0thK" name="Parameters.cpp" compile="1" resource="0" file="Source/Parameters.cpp"/>
           <FILE id="kR6sSx" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
           <FILE id="P9vjie" name="PluginProcessor.cpp" compile="1" resource="0"
                 file="Source/PluginProcessor.cpp"/>
