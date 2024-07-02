@@ -74,7 +74,7 @@ void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue
 
 
 juce::AudioProcessorEditor* RalphAudioProcessor::createEditor() {
-    return new RalphAudioProcessorEditor(*this);
+    return new RalphAudioProcessorEditor(*this, parameters);
 }
 
 void RalphAudioProcessor::getStateInformation (juce::MemoryBlock& destData) {
