@@ -2,7 +2,6 @@
 #include "PluginEditor.h"
 #include "Parameters.h"
 
-
 RalphAudioProcessor::RalphAudioProcessor() :
     parameters(*this, nullptr, "PARAMS", Parameters::createParameterLayout()),
     bitCrush(),

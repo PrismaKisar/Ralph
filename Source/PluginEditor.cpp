@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Parameters.h"
 
 constexpr int ORANGE = 0xFFFFA600;
 constexpr int LIGHT_GRAY = 0xFF8E8A82;
@@ -17,35 +18,42 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     downSampleWrite = juce::ImageFileFormat::loadFrom(BinaryData::downSample_png, BinaryData::downSample_pngSize);
     screwImage = juce::ImageFileFormat::loadFrom(BinaryData::screw_png, BinaryData::screw_pngSize);
     
-    //setupRotarySlider(gainINSlider, 100, 100, 30, 30);
-    //setupRotarySlider(gainOUTSlider, 100, 100, 30, 30);
+    setupRotarySlider(gainINSlider, 5, 490, 70, 70);
+    setupRotarySlider(gainOUTSlider, 725, 490, 70, 70);
+
+    setupRotarySlider(AmountBCSlider, 120, 310, 120, 120);
+    setupRotarySlider(FreqBCSlider, 250, 320, 100, 100);
+    setupRotarySlider(WaveformBCSlider, 130, 430, 100, 100);
+    setupRotarySlider(DryWetBCSlider, 240, 420, 120, 120);
+    
+    setupRotarySlider(AmountDSSlider, 440, 310, 120, 120);
+    setupRotarySlider(FreqDSSlider, 570, 320, 100, 100);
+    setupRotarySlider(WaveformDSSlider, 450, 430, 100, 100);
+    setupRotarySlider(DryWetDSSlider, 560, 420, 120, 120);
     
     /*
-    DryWetBCSlider;
-    FreqBCSlider;
-    AmountBCSlider;
-    WaveformBCSlider;
     BitCrushSlider;
-    DryWetDSSlider;
-    FreqDSSlider;
-    AmountDSSlider;
-    WaveformDSSlider;
-    DownSampleSlider;*/
+    DownSampleSlider;
+     */
     
     
-    //gainINAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainIn, gainINSlider));
-    //gainOUTAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainOut, gainOUTSlider));
+    gainINAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainIn, gainINSlider));
+    gainOUTAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainOut, gainOUTSlider));
+    
+    AmountBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameAmountBC, AmountBCSlider));
+    FreqBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameFreqBC, FreqBCSlider));
+    DryWetBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameDryWetBC, DryWetBCSlider));
+    WaveformBCAttachment.reset(new SliderAttachment(parameters, Parameters::nameWaveformBC, WaveformBCSlider));
+    
+    DryWetDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameDryWetDS, DryWetDSSlider));
+    FreqDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameFreqDS, FreqDSSlider));
+    AmountDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameAmountDS, AmountDSSlider));
+    WaveformDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameWaveformDS, WaveformDSSlider));
+
     /*
-    DryWetBCAttachment
-    FreqBCAttachment
-    AmountBCAttachment
-    WaveformBCAttachment
     BitCrushAttachment
-    DryWetDSAttachment
-    FreqDSAttachment
-    AmountDSAttachment
-    WaveformDSAttachment
-    DownSampleAttachment*/
+    DownSampleAttachment
+     */
 }
 
 RalphAudioProcessorEditor::~RalphAudioProcessorEditor() {}
@@ -96,11 +104,11 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
 
 void RalphAudioProcessorEditor::resized() {}
 
-/*
+
 void RalphAudioProcessorEditor::setupRotarySlider(Slider& slider, int x, int y, int w, int h) {
     slider.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);
 }
-*/
+
