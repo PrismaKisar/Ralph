@@ -25,7 +25,6 @@ void RalphAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     bitCrush.prepare(spec);
     GainIn.reset(sampleRate, 0.02);
     GainOut.reset(sampleRate, 0.02);
-
     downSample.prepareToPlay(sampleRate, samplesPerBlock, spec);
     lfoBC.prepareToPlay(sampleRate);
     BCMod.setSize(2, samplesPerBlock);
@@ -59,12 +58,12 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 }
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {
-    if (paramID == Parameters::nameDryWetDS) downSample.setDryWet(newValue);
+    if (paramID == Parameters::nameDryWetDS) downSample.setDryWet(newValue * 0.01);
     if (paramID == Parameters::nameFreqDS) lfoDS.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformDS) lfoDS.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountDS) DSModCtrl.setModAmount(newValue);
     if (paramID == Parameters::nameDownSample) DSModCtrl.setParameter(newValue);
-    if (paramID == Parameters::nameDryWetBC) bitCrush.setDryWet(newValue);
+    if (paramID == Parameters::nameDryWetBC) bitCrush.setDryWet(newValue * 0.01);
     if (paramID == Parameters::nameFreqBC) lfoBC.setFrequency(newValue);
     if (paramID == Parameters::nameWaveformBC) lfoBC.setWaveform(roundToInt(newValue));
     if (paramID == Parameters::nameAmountBC) BCModCtrl.setModAmount(newValue);
