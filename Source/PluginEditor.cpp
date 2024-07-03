@@ -8,7 +8,7 @@ constexpr int BG_GRAY = 0xFF2F2E29;
 constexpr int DARK_GRAY = 0xFF20221E;
 
 RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor(&p), audioProcessor(p), parameters(vts)
+: AudioProcessorEditor(&p), audioProcessor(p), parameters(vts), lookAndFeel()
 {
     setSize (800, 600);
     
@@ -18,20 +18,20 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     downSampleWrite = juce::ImageFileFormat::loadFrom(BinaryData::downSample_png, BinaryData::downSample_pngSize);
     screwImage = juce::ImageFileFormat::loadFrom(BinaryData::screw_png, BinaryData::screw_pngSize);
     
-    setupRotarySlider(gainINSlider, 5, 490, 70, 70);
-    setupRotarySlider(gainOUTSlider, 725, 490, 70, 70);
+    setupRotarySlider(gainINSlider, 25, 500, 30, 30);
+    setupRotarySlider(gainOUTSlider, 745, 500, 30, 30);
 
     setupHorizontalSlider(BitCrushSlider, 120, 230, 240, 70);
-    setupRotarySlider(AmountBCSlider, 120, 310, 120, 120);
-    setupRotarySlider(FreqBCSlider, 250, 320, 100, 100);
-    setupRotarySlider(WaveformBCSlider, 130, 430, 100, 100);
-    setupRotarySlider(DryWetBCSlider, 240, 420, 120, 120);
+    setupRotarySlider(AmountBCSlider, 140, 310, 80, 80);
+    setupRotarySlider(FreqBCSlider, 270, 320, 60, 60);
+    setupRotarySlider(WaveformBCSlider, 150, 430, 60, 60);
+    setupRotarySlider(DryWetBCSlider, 260, 420, 80, 80);
     
     setupHorizontalSlider(DownSampleSlider, 440, 230, 240, 70);
-    setupRotarySlider(AmountDSSlider, 440, 310, 120, 120);
-    setupRotarySlider(FreqDSSlider, 570, 320, 100, 100);
-    setupRotarySlider(WaveformDSSlider, 450, 430, 100, 100);
-    setupRotarySlider(DryWetDSSlider, 560, 420, 120, 120);
+    setupRotarySlider(AmountDSSlider, 460, 310, 80, 80);
+    setupRotarySlider(FreqDSSlider, 590, 320, 60, 60);
+    setupRotarySlider(WaveformDSSlider, 470, 430, 60, 60);
+    setupRotarySlider(DryWetDSSlider, 580, 420, 80, 80);
     
     
     gainINAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainIn, gainINSlider));
@@ -93,7 +93,7 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     // texts
     g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(downSampleWrite, 450, 160, 210, 60, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphAudioProcessorEditor::resized() {}
@@ -101,14 +101,15 @@ void RalphAudioProcessorEditor::resized() {}
 
 void RalphAudioProcessorEditor::setupRotarySlider(Slider& slider, int x, int y, int w, int h) {
     slider.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
-    slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
+    slider.setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);
+    slider.setLookAndFeel(&lookAndFeel);
 }
 
 void RalphAudioProcessorEditor::setupHorizontalSlider(Slider& slider, int x, int y, int w, int h) {
     slider.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
-    slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
+    slider.setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);
 }

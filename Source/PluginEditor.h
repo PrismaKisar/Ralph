@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "CustomLookAndFeel.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
@@ -16,6 +17,7 @@ public:
 private:
     RalphAudioProcessor& audioProcessor;
     AudioProcessorValueTreeState& parameters;
+    CustomLookAndFeel lookAndFeel;
     
     Image backgroundImage;
     Image ralphWrite;

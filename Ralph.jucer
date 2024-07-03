@@ -11,8 +11,14 @@
           <FILE id="PDllhs" name="screw.png" compile="0" resource="1" file="Source/screw.png"/>
           <FILE id="aiL9qM" name="downSample.png" compile="0" resource="1" file="Source/downSample.png"/>
           <FILE id="sMgkJr" name="bitCrush.png" compile="0" resource="1" file="Source/bitCrush.png"/>
+          <FILE id="jJ4lzD" name="knobBase.png" compile="0" resource="1" file="Source/knobBase.png"/>
+          <FILE id="pB8GqK" name="knob.png" compile="0" resource="1" file="Source/knob.png"/>
           <FILE id="QZgvlm" name="ralph.png" compile="0" resource="1" file="Source/ralph.png"/>
         </GROUP>
+        <FILE id="DGrugc" name="CustomLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/CustomLookAndFeel.cpp"/>
+        <FILE id="PoX9rU" name="CustomLookAndFeel.h" compile="0" resource="0"
+              file="Source/CustomLookAndFeel.h"/>
         <FILE id="vfqtOH" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
