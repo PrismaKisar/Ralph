@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "CustomLookAndFeel.h"
+#include "Meter.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
@@ -18,6 +19,9 @@ private:
     RalphAudioProcessor& audioProcessor;
     AudioProcessorValueTreeState& parameters;
     CustomLookAndFeel lookAndFeel, lookAndFeelLessTick;
+    
+    std::unique_ptr<Meter> meterIN;
+    std::unique_ptr<Meter> meterOUT;
     
     Image backgroundImage;
     Image ralphWrite;

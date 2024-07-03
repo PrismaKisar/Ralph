@@ -23,6 +23,8 @@
               file="Source/CustomLookAndFeel.cpp"/>
         <FILE id="PoX9rU" name="CustomLookAndFeel.h" compile="0" resource="0"
               file="Source/CustomLookAndFeel.h"/>
+        <FILE id="ACsFw1" name="Meter.cpp" compile="1" resource="0" file="Source/Meter.cpp"/>
+        <FILE id="oMwD3Y" name="Meter.h" compile="0" resource="0" file="Source/Meter.h"/>
         <FILE id="vfqtOH" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>

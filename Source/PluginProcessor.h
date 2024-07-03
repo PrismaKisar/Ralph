@@ -34,6 +34,9 @@ public:
 
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    Atomic<float> envelopeIN;
+    Atomic<float> envelopeOUT;
 
 private:
     AudioProcessorValueTreeState parameters;

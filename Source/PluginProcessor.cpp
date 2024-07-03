@@ -44,6 +44,7 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     const auto numSamples = buffer.getNumSamples();
     
     GainIn.applyGain(buffer, numSamples);
+    envelopeIN.set(jmax(envelopeIN.get(), buffer.getMagnitude(0, numSamples)));
 
     lfoDS.getNextAudioBlock(DSMod, numSamples);
     DSModCtrl.processBlock(DSMod, numSamples);
@@ -54,6 +55,8 @@ void RalphAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     downSample.processBlock(buffer, DSMod);
     
     GainOut.applyGain(buffer, numSamples);
+    envelopeOUT.set(jmax(envelopeOUT.get(), buffer.getMagnitude(0, numSamples)));
+
 }
 
 void RalphAudioProcessor::parameterChanged(const String& paramID, float newValue) {

@@ -57,6 +57,16 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     lookAndFeelLessTick.setNumTicks(6);
     WaveformBCSlider.setLookAndFeel(&lookAndFeelLessTick);
     WaveformDSSlider.setLookAndFeel(&lookAndFeelLessTick);
+    
+    meterIN.reset(new Meter());
+    addAndMakeVisible(meterIN.get());
+    meterIN->setBounds (30, 120, 20, 370);
+    meterIN->connectTo(audioProcessor.envelopeIN);
+    
+    meterOUT.reset(new Meter());
+    addAndMakeVisible(meterOUT.get());
+    meterOUT->setBounds (750, 120, 20, 370);
+    meterOUT->connectTo(audioProcessor.envelopeOUT);
 }
 
 RalphAudioProcessorEditor::~RalphAudioProcessorEditor() {}
@@ -113,9 +123,6 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
-    
-    
-
 }
 
 void RalphAudioProcessorEditor::resized() {}
