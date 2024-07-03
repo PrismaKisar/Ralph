@@ -14,7 +14,7 @@ public:
 private:
     Image knob;
     Image knobBase;
-    int numTicks = 10;
+    int numTicks = 15;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CustomLookAndFeel)
 };

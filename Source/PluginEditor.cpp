@@ -48,6 +48,10 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     FreqDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameFreqDS, FreqDSSlider));
     AmountDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameAmountDS, AmountDSSlider));
     WaveformDSAttachment.reset(new SliderAttachment(parameters, Parameters::nameWaveformDS, WaveformDSSlider));
+    
+    lookAndFeelLessTick.setNumTicks(6);
+    WaveformBCSlider.setLookAndFeel(&lookAndFeelLessTick);
+    WaveformDSSlider.setLookAndFeel(&lookAndFeelLessTick);
 }
 
 RalphAudioProcessorEditor::~RalphAudioProcessorEditor() {}

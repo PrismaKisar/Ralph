@@ -17,7 +17,7 @@ public:
 private:
     RalphAudioProcessor& audioProcessor;
     AudioProcessorValueTreeState& parameters;
-    CustomLookAndFeel lookAndFeel;
+    CustomLookAndFeel lookAndFeel, lookAndFeelLessTick;
     
     Image backgroundImage;
     Image ralphWrite;
