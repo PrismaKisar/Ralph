@@ -17,21 +17,26 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     bitCrushWrite = juce::ImageFileFormat::loadFrom(BinaryData::bitCrush_png, BinaryData::bitCrush_pngSize);
     downSampleWrite = juce::ImageFileFormat::loadFrom(BinaryData::downSample_png, BinaryData::downSample_pngSize);
     screwImage = juce::ImageFileFormat::loadFrom(BinaryData::screw_png, BinaryData::screw_pngSize);
+    amountWrite = juce::ImageFileFormat::loadFrom(BinaryData::amount_png, BinaryData::amount_pngSize);
+    dryWetWrite = juce::ImageFileFormat::loadFrom(BinaryData::dryWet_png, BinaryData::dryWet_pngSize);
+    frequencyWrite = juce::ImageFileFormat::loadFrom(BinaryData::frequency_png, BinaryData::frequency_pngSize);
+    waveformWrite = juce::ImageFileFormat::loadFrom(BinaryData::waveform_png, BinaryData::waveform_pngSize);
+
     
     setupRotarySlider(gainINSlider, 25, 500, 30, 30);
     setupRotarySlider(gainOUTSlider, 745, 500, 30, 30);
 
     setupHorizontalSlider(BitCrushSlider, 120, 230, 240, 70);
-    setupRotarySlider(AmountBCSlider, 140, 310, 80, 80);
-    setupRotarySlider(FreqBCSlider, 270, 320, 60, 60);
-    setupRotarySlider(WaveformBCSlider, 150, 430, 60, 60);
-    setupRotarySlider(DryWetBCSlider, 260, 420, 80, 80);
+    setupRotarySlider(AmountBCSlider, 140, 320, 80, 80);
+    setupRotarySlider(FreqBCSlider, 270, 330, 60, 60);
+    setupRotarySlider(WaveformBCSlider, 150, 450, 60, 60);
+    setupRotarySlider(DryWetBCSlider, 260, 440, 80, 80);
     
     setupHorizontalSlider(DownSampleSlider, 440, 230, 240, 70);
-    setupRotarySlider(AmountDSSlider, 460, 310, 80, 80);
-    setupRotarySlider(FreqDSSlider, 590, 320, 60, 60);
-    setupRotarySlider(WaveformDSSlider, 470, 430, 60, 60);
-    setupRotarySlider(DryWetDSSlider, 580, 420, 80, 80);
+    setupRotarySlider(AmountDSSlider, 460, 320, 80, 80);
+    setupRotarySlider(FreqDSSlider, 590, 330, 60, 60);
+    setupRotarySlider(WaveformDSSlider, 470, 450, 60, 60);
+    setupRotarySlider(DryWetDSSlider, 580, 440, 80, 80);
     
     
     gainINAttachment.reset(new SliderAttachment(parameters, Parameters::nameGainIn, gainINSlider));
@@ -63,8 +68,8 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.fillAll();
 
     // macro-section
-    Rectangle<float> bitCrushRectagle(100, 130, 280, 400);
-    Rectangle<float> downSampleRectagle(420, 130, 280, 400);
+    Rectangle<float> bitCrushRectagle(100, 130, 280, 430);
+    Rectangle<float> downSampleRectagle(420, 130, 280, 430);
     g.setColour(juce::Colour(DARK_GRAY));
     g.fillRoundedRectangle(bitCrushRectagle, 10);
     g.fillRoundedRectangle(downSampleRectagle, 10);
@@ -82,6 +87,16 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.setColour(Colours::white);
     g.drawText("IN", 20, 97, 40, 20, Justification::horizontallyCentred);
     g.drawText("OUT", 740, 97, 40, 20, Justification::horizontallyCentred);
+    
+    // small texts
+    g.drawImageWithin(amountWrite, 143, 397, 70, 25, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(amountWrite, 463, 397, 70, 25, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(frequencyWrite, 262, 388, 70, 25, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(frequencyWrite, 582, 388, 70, 25, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(waveformWrite, 143, 505, 70, 35, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(waveformWrite, 463, 505, 70, 35, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(dryWetWrite, 265, 520, 70, 35, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(dryWetWrite, 585, 520, 70, 35, juce::RectanglePlacement::stretchToFit);
 
     // background texture
     g.setOpacity(0.35);
@@ -94,10 +109,13 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.drawImageWithin(screwImage, 775, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(screwImage, 10, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
     
-    // texts
+    // big texts
     g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
+    
+    
+
 }
 
 void RalphAudioProcessorEditor::resized() {}

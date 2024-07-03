@@ -24,6 +24,10 @@ private:
     Image bitCrushWrite;
     Image downSampleWrite;
     Image screwImage;
+    Image amountWrite;
+    Image dryWetWrite;
+    Image frequencyWrite;
+    Image waveformWrite;
         
     Slider gainINSlider;
     Slider gainOUTSlider;
