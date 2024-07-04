@@ -23,7 +23,8 @@ void Meter::paint(Graphics &g) {
         filler.addColour(0.8f, Colours::lightblue);
         g.setGradientFill(filler);
 
-        g.fillRoundedRectangle(1.0f, H - 1.0f - barHeight, W - 2.0f, barHeight, 2);
+        g.setOpacity(0.3);
+        g.fillRoundedRectangle(1.0f, H - 1.0f - barHeight, W - 2.0f, barHeight, 4);
     }
 }
 

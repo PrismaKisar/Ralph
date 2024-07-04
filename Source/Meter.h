@@ -2,8 +2,8 @@
 
 #include <JuceHeader.h>
 
-#define FPS 30
-#define RELEASE_TIME 0.75f
+#define FPS 60
+#define RELEASE_TIME 0.30f
 #define DB_FLOOR -48.0f
 
 class Meter : public Component, public Timer {

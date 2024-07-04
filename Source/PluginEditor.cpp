@@ -2,8 +2,6 @@
 #include "PluginEditor.h"
 #include "Parameters.h"
 
-constexpr int ORANGE = 0xFFFFA600;
-constexpr int LIGHT_GRAY = 0xFF8E8A82;
 constexpr int BG_GRAY = 0xFF2F2E29;
 constexpr int DARK_GRAY = 0xFF20221E;
 
@@ -21,8 +19,8 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     dryWetWrite = juce::ImageFileFormat::loadFrom(BinaryData::dryWet_png, BinaryData::dryWet_pngSize);
     frequencyWrite = juce::ImageFileFormat::loadFrom(BinaryData::frequency_png, BinaryData::frequency_pngSize);
     waveformWrite = juce::ImageFileFormat::loadFrom(BinaryData::waveform_png, BinaryData::waveform_pngSize);
+    glassTexture = juce::ImageFileFormat::loadFrom(BinaryData::glass_png, BinaryData::glass_pngSize);
 
-    
     setupRotarySlider(gainINSlider, 25, 500, 30, 30);
     setupRotarySlider(gainOUTSlider, 745, 500, 30, 30);
 
@@ -60,12 +58,12 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     
     meterIN.reset(new Meter());
     addAndMakeVisible(meterIN.get());
-    meterIN->setBounds (30, 120, 20, 370);
+    meterIN->setBounds(32, 122, 16, 366);
     meterIN->connectTo(audioProcessor.envelopeIN);
     
     meterOUT.reset(new Meter());
     addAndMakeVisible(meterOUT.get());
-    meterOUT->setBounds (750, 120, 20, 370);
+    meterOUT->setBounds(752, 122, 16, 366);
     meterOUT->connectTo(audioProcessor.envelopeOUT);
 }
 
@@ -112,6 +110,8 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.setOpacity(0.35);
     g.drawImageWithin(backgroundImage, 0, 0, 800, 600, juce::RectanglePlacement::stretchToFit);
     
+    
+    
     // screws
     g.setOpacity(1);
     g.drawImageWithin(screwImage, 10, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
@@ -123,6 +123,10 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
+    
+    // glass
+    g.drawImageWithin(glassTexture, 32, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(glassTexture, 752, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphAudioProcessorEditor::resized() {}
