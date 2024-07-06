@@ -33,12 +33,12 @@ namespace Parameters {
         parameters.push_back(createFloatParameter(nameGainIn, "Gain IN", minGain, maxGain, defaultGain, 0.1f, 3.0f));
         parameters.push_back(createFloatParameter(nameDryWetDS, "Dry/Wet DS (%) ", 0.0f, 100.0f, defaultDryWet, 0.01f, 1.0f));
         parameters.push_back(createFloatParameter(nameDownSample, "DownSample", minSR, maxSR, defaultSR, 1.0f, 0.2f));
-        parameters.push_back(createFloatParameter(nameFreqDS, "LFO Frequency DownSample (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
+        parameters.push_back(createFloatParameter(nameFreqDS, "LFO Frequency DownSample (Hz)", minFreq, maxFreq, defaultFreq, 0.01f, 0.5f));
         parameters.push_back(createFloatParameter(nameAmountDS, "LFO Amount DownSample (Hz)", 0.0f, modSRRange, defaultAmount, 1.0f, 1.0f));
         parameters.push_back(createChoiceParameter(nameWaveformDS, "LFO Waveform DownSample", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square", "Sample and Hold"}, defaultWaveform));
         parameters.push_back(createFloatParameter(nameDryWetBC, "Dry/Wet BC (%)", 0.0f, 100.0f, defaultDryWet, 0.01f, 1.0f));
         parameters.push_back(createFloatParameter(nameBitCrush, "Bits", minBitDepth, maxBitDepth, defaultBitDepth, 0.001f, 0.4f));
-        parameters.push_back(createFloatParameter(nameFreqBC, "LFO Frequency BitCrush (Hz)", minFreq, maxFreq, defaultFreq, 0.1f, 0.2f));
+        parameters.push_back(createFloatParameter(nameFreqBC, "LFO Frequency BitCrush (Hz)", minFreq, maxFreq, defaultFreq, 0.01f, 0.5f));
         parameters.push_back(createFloatParameter(nameAmountBC, "LFO Amount BitCrush (bits)", 0.0f, modBitRange, defaultAmount, 0.01f, 1.0f));
         parameters.push_back(createChoiceParameter(nameWaveformBC, "LFO Waveform BitCrush", juce::StringArray{"Sinusoid", "Triangular", "Saw Up", "Saw Down", "Square", "Sample and Hold"}, defaultWaveform));
         parameters.push_back(createFloatParameter(nameGainOut, "Gain OUT", minGain, maxGain, defaultGain, 0.1f, 3.0f));

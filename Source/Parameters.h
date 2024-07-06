@@ -11,7 +11,7 @@ namespace Parameters {
     constexpr float minSR = 500.0f;
     constexpr float modSRRange = 10000.0;
     constexpr float maxFreq = 60.0f;
-    constexpr float minFreq = 0.05f;
+    constexpr float minFreq = 0.01f;
     constexpr float minGain = -48.0f;
     constexpr float maxGain = 6.0f;
 

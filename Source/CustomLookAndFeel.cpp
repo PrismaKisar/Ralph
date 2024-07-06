@@ -9,17 +9,17 @@ CustomLookAndFeel::CustomLookAndFeel() {
 }
 
 void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider &slider) {
-    
+        
     float radius = jmin(width, height) * 0.5f;
     float centreX = x + width * 0.5f;
     float centreY = y + height * 0.5f;
     const float tickLength = 3.0f;
     const float tickThickness = 2.0f;
     const Colour tickColor = Colours::grey;
-
+    
     Path originalShape, tempShape;
     originalShape.addRectangle(tickThickness * -0.5f, -radius, tickThickness, tickLength);
-
+    
     g.setColour(tickColor);
     for (int i = 0; i < numTicks; ++i) {
         tempShape = originalShape;
@@ -29,23 +29,23 @@ void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, i
     }
     
     const float scaleFactor = 0.8f;
-
+    
     const int reducedWidth = static_cast<int>(width * scaleFactor);
     const int reducedHeight = static_cast<int>(height * scaleFactor);
-
+    
     const int offsetX = x + (width - reducedWidth) / 2;
     const int offsetY = y + (height - reducedHeight) / 2;
-
+    
     g.drawImageWithin(knobWithoutPointer, offsetX, offsetY, reducedWidth, reducedHeight, juce::RectanglePlacement::centred);
-
+    
     const double rotation = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
-
+    
     const float pointerScaleRelativeToKnob = 0.28f;
     const int pointerWidth = static_cast<int>(reducedWidth * pointerScaleRelativeToKnob);
     const int pointerHeight = static_cast<int>(reducedHeight * pointerScaleRelativeToKnob);
     
     const float reducedRadius = reducedWidth * 0.35f;
-
+    
     g.saveState();
     g.addTransform(juce::AffineTransform::translation(offsetX + reducedWidth / 2, offsetY + reducedHeight / 2));
     g.addTransform(juce::AffineTransform::rotation(rotation));

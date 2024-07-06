@@ -23,16 +23,20 @@ private:
     std::unique_ptr<Meter> meterIN;
     std::unique_ptr<Meter> meterOUT;
     
-    Image backgroundImage;
+    Image backgroundTexture;
+    Image glassTexture;
+
+    Image screwImage;
+    
     Image ralphWrite;
     Image bitCrushWrite;
     Image downSampleWrite;
-    Image screwImage;
+    Image bitsWrite;
+    Image hertzWrite;
+    Image frequencyWrite;
     Image amountWrite;
     Image dryWetWrite;
-    Image frequencyWrite;
     Image waveformWrite;
-    Image glassTexture;
         
     Slider gainINSlider;
     Slider gainOUTSlider;
