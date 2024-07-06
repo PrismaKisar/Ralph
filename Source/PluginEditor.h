@@ -32,7 +32,6 @@ private:
     Image dryWetWrite;
     Image frequencyWrite;
     Image waveformWrite;
-    
     Image glassTexture;
         
     Slider gainINSlider;

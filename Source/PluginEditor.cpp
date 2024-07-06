@@ -24,13 +24,13 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor (RalphAudioProcessor& p, Au
     setupRotarySlider(gainINSlider, 25, 500, 30, 30);
     setupRotarySlider(gainOUTSlider, 745, 500, 30, 30);
 
-    setupHorizontalSlider(BitCrushSlider, 120, 230, 240, 70);
+    setupHorizontalSlider(BitCrushSlider, 140, 250, 200, 30);
     setupRotarySlider(AmountBCSlider, 140, 320, 80, 80);
     setupRotarySlider(FreqBCSlider, 270, 330, 60, 60);
     setupRotarySlider(WaveformBCSlider, 150, 450, 60, 60);
     setupRotarySlider(DryWetBCSlider, 260, 440, 80, 80);
     
-    setupHorizontalSlider(DownSampleSlider, 440, 230, 240, 70);
+    setupHorizontalSlider(DownSampleSlider, 460, 250, 200, 30);
     setupRotarySlider(AmountDSSlider, 460, 320, 80, 80);
     setupRotarySlider(FreqDSSlider, 590, 330, 60, 60);
     setupRotarySlider(WaveformDSSlider, 470, 450, 60, 60);
@@ -110,8 +110,6 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     g.setOpacity(0.35);
     g.drawImageWithin(backgroundImage, 0, 0, 800, 600, juce::RectanglePlacement::stretchToFit);
     
-    
-    
     // screws
     g.setOpacity(1);
     g.drawImageWithin(screwImage, 10, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
@@ -127,6 +125,9 @@ void RalphAudioProcessorEditor::paint (juce::Graphics& g) {
     // glass
     g.drawImageWithin(glassTexture, 32, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(glassTexture, 752, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
+    
+    
+    
 }
 
 void RalphAudioProcessorEditor::resized() {}
@@ -145,5 +146,6 @@ void RalphAudioProcessorEditor::setupHorizontalSlider(Slider& slider, int x, int
     slider.setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);
+    slider.setLookAndFeel(&lookAndFeel);
 }
 

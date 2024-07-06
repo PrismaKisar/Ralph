@@ -9,15 +9,17 @@
         <GROUP id="{E7406A7B-08E0-4ADF-1546-FC9A4DC253DF}" name="Images">
           <FILE id="kaNAMO" name="texture.jpg" compile="0" resource="1" file="Source/texture.jpg"/>
           <FILE id="PDllhs" name="screw.png" compile="0" resource="1" file="Source/screw.png"/>
+          <FILE id="q3MAbF" name="hole.png" compile="0" resource="1" file="../../../../../../../Downloads/hole.png"/>
           <FILE id="tOTT4b" name="glass.png" compile="0" resource="1" file="Source/glass.png"/>
           <FILE id="aiL9qM" name="downSample.png" compile="0" resource="1" file="Source/downSample.png"/>
           <FILE id="sMgkJr" name="bitCrush.png" compile="0" resource="1" file="Source/bitCrush.png"/>
+          <FILE id="nf2dlr" name="littleKnob.png" compile="0" resource="1" file="Source/littleKnob.png"/>
           <FILE id="jJ4lzD" name="knobBase.png" compile="0" resource="1" file="Source/knobBase.png"/>
           <FILE id="Wbftrd" name="waveform.png" compile="0" resource="1" file="Source/waveform.png"/>
           <FILE id="mVNml7" name="dryWet.png" compile="0" resource="1" file="Source/dryWet.png"/>
           <FILE id="IJUNJ5" name="frequency.png" compile="0" resource="1" file="Source/frequency.png"/>
-          <FILE id="pB8GqK" name="knob.png" compile="0" resource="1" file="Source/knob.png"/>
           <FILE id="NC3cmT" name="amount.png" compile="0" resource="1" file="Source/amount.png"/>
+          <FILE id="UYf1jW" name="knob.png" compile="0" resource="1" file="../../../../../../../Downloads/knob.png"/>
           <FILE id="QZgvlm" name="ralph.png" compile="0" resource="1" file="Source/ralph.png"/>
         </GROUP>
         <FILE id="DGrugc" name="CustomLookAndFeel.cpp" compile="1" resource="0"
