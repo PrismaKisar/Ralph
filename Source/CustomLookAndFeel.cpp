@@ -1,16 +1,14 @@
 #include "CustomLookAndFeel.h"
 
 CustomLookAndFeel::CustomLookAndFeel() {
-    knob = juce::ImageFileFormat::loadFrom(BinaryData::knob_png, BinaryData::knob_pngSize);
-    knobBase = juce::ImageFileFormat::loadFrom(BinaryData::knobBase_png, BinaryData::knobBase_pngSize);
     littleKnob = juce::ImageFileFormat::loadFrom(BinaryData::littleKnob_png, BinaryData::littleKnob_pngSize);
     holeImage = juce::ImageFileFormat::loadFrom(BinaryData::hole_png, BinaryData::hole_pngSize);
+    knobWithoutPointer = juce::ImageFileFormat::loadFrom(BinaryData::knobWithoutPointer_png, BinaryData::knobWithoutPointer_pngSize);
+    pointer = juce::ImageFileFormat::loadFrom(BinaryData::pointer_png, BinaryData::pointer_pngSize);
+
 }
 
-void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, int height,
-                                         float sliderPosProportional, float rotaryStartAngle,
-                                         float rotaryEndAngle, Slider &slider) {
-    const float angle = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
+void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider &slider) {
     
     float radius = jmin(width, height) * 0.5f;
     float centreX = x + width * 0.5f;
@@ -29,18 +27,30 @@ void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, i
         tempShape.applyTransform(AffineTransform::rotation(tickAngle).translated(centreX, centreY));
         g.fillPath(tempShape);
     }
+    
+    const float scaleFactor = 0.8f;
+
+    const int reducedWidth = static_cast<int>(width * scaleFactor);
+    const int reducedHeight = static_cast<int>(height * scaleFactor);
+
+    const int offsetX = x + (width - reducedWidth) / 2;
+    const int offsetY = y + (height - reducedHeight) / 2;
+
+    g.drawImageWithin(knobWithoutPointer, offsetX, offsetY, reducedWidth, reducedHeight, juce::RectanglePlacement::centred);
+
+    const double rotation = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
+
+    const float pointerScaleRelativeToKnob = 0.28f;
+    const int pointerWidth = static_cast<int>(reducedWidth * pointerScaleRelativeToKnob);
+    const int pointerHeight = static_cast<int>(reducedHeight * pointerScaleRelativeToKnob);
+    
+    const float reducedRadius = reducedWidth * 0.35f;
 
     g.saveState();
-    g.addTransform(AffineTransform::translation(x + width * 0.5f, y + height * 0.5f));
-    g.addTransform(AffineTransform::rotation(angle));
-
-    float scaleFactor = jmin((float)width / knob.getWidth(), (float)height / knob.getHeight()) * 0.8f;  // Scala l'immagine della knob
-
-    g.addTransform(AffineTransform::scale(scaleFactor, scaleFactor));
-    g.drawImageTransformed(knob, AffineTransform::translation(-knob.getWidth() * 0.5f, -knob.getHeight() * 0.5f));
+    g.addTransform(juce::AffineTransform::translation(offsetX + reducedWidth / 2, offsetY + reducedHeight / 2));
+    g.addTransform(juce::AffineTransform::rotation(rotation));
+    g.drawImageWithin(pointer, -pointerWidth / 2, -reducedRadius, pointerWidth, pointerHeight, juce::RectanglePlacement::centred);
     g.restoreState();
-
-    g.drawImageWithin(knobBase, width * 0.1, height * 0.1, width - width * 0.2, height - height * 0.2, RectanglePlacement::stretchToFit);
 }
 
 void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, Slider::SliderStyle sliderStyle, Slider &slider) {
@@ -67,8 +77,3 @@ void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, i
     g.setOpacity(1);
     g.drawImageWithin(littleKnob, (int)knobX, 0, 30, 30, RectanglePlacement::stretchToFit);
 }
-
-
-
-
-

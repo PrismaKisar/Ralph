@@ -12,10 +12,10 @@ public:
     void setNumTicks(int numTicks) { this->numTicks = numTicks; }
 
 private:
-    Image knob;
-    Image knobBase;
     Image littleKnob;
     Image holeImage;
+    Image knobWithoutPointer;
+    Image pointer;
 
     int numTicks = 15;
 

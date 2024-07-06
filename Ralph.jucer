@@ -11,6 +11,8 @@
           <FILE id="PDllhs" name="screw.png" compile="0" resource="1" file="Source/screw.png"/>
           <FILE id="q3MAbF" name="hole.png" compile="0" resource="1" file="../../../../../../../Downloads/hole.png"/>
           <FILE id="tOTT4b" name="glass.png" compile="0" resource="1" file="Source/glass.png"/>
+          <FILE id="vK9HdS" name="knobWithoutPointer.png" compile="0" resource="1"
+                file="Source/knobWithoutPointer.png"/>
           <FILE id="aiL9qM" name="downSample.png" compile="0" resource="1" file="Source/downSample.png"/>
           <FILE id="sMgkJr" name="bitCrush.png" compile="0" resource="1" file="Source/bitCrush.png"/>
           <FILE id="nf2dlr" name="littleKnob.png" compile="0" resource="1" file="Source/littleKnob.png"/>
@@ -20,6 +22,7 @@
           <FILE id="IJUNJ5" name="frequency.png" compile="0" resource="1" file="Source/frequency.png"/>
           <FILE id="NC3cmT" name="amount.png" compile="0" resource="1" file="Source/amount.png"/>
           <FILE id="UYf1jW" name="knob.png" compile="0" resource="1" file="../../../../../../../Downloads/knob.png"/>
+          <FILE id="LGJzEc" name="pointer.png" compile="0" resource="1" file="Source/pointer.png"/>
           <FILE id="QZgvlm" name="ralph.png" compile="0" resource="1" file="Source/ralph.png"/>
         </GROUP>
         <FILE id="DGrugc" name="CustomLookAndFeel.cpp" compile="1" resource="0"
