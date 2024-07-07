@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "TimedSlider.h"
 
 class CustomLookAndFeel : public LookAndFeel_V4 {
 public:
@@ -25,6 +26,8 @@ private:
     void drawRotaryPointer(Graphics& g, float rotation, int x, int y, int width, int height);
     void drawLinearTicks(Graphics& g, int x, int width);
     void drawLinearKnob(Graphics& g, int x, float knobX);
+    void drawTimedSliderOverlay(Graphics& g, Slider& slider, int width, int height);
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CustomLookAndFeel)
 };

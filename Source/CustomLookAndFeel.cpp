@@ -64,6 +64,9 @@ void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, i
     
     const double rotation = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
     drawRotaryPointer(g, rotation, x, y, width, height);
+
+    // Disegna l'overlay se è un TimedSlider
+    drawTimedSliderOverlay(g, slider, width, height);
 }
 
 // Linear
@@ -96,4 +99,40 @@ void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, i
 
     drawLinearTicks(g, x, width);
     drawLinearKnob(g, x, knobX);
+
+    // Disegna l'overlay se è un TimedSlider
+    drawTimedSliderOverlay(g, slider, width, height);
 }
+
+
+void CustomLookAndFeel::drawTimedSliderOverlay(Graphics& g, Slider& slider, int width, int height) {
+    if (auto* timedSlider = dynamic_cast<TimedSlider*>(&slider)) {
+        
+        timedSlider->setValueWithTimeCheck(slider.getValue());
+        if (!timedSlider->isDrawable()) return;
+        
+        String sliderValue = String(timedSlider->getValue());
+
+        int rectWidth = width / 2;
+        int rectHeight = height / 4;
+        int rectX = (width - rectWidth) / 2;
+        int rectY = (height - rectHeight);
+
+        Colour rectColor = Colours::darkgrey;
+        Colour textColor = Colours::white;
+
+        g.setOpacity(0.3);
+        g.setColour(rectColor);
+        g.fillRoundedRectangle(rectX, rectY, rectWidth, rectHeight, 5.0f);
+
+        float fontSize = jmin(10.0f, (float)height * 0.2f);
+        g.setFont(Font(fontSize));
+
+        g.setOpacity(1);
+        g.setColour(textColor);
+        g.drawFittedText(sliderValue, rectX, rectY, rectWidth, rectHeight, Justification::centred, 1);
+    }
+}
+
+
+

@@ -10,6 +10,8 @@
           <FILE id="vfqtOH" name="PluginEditor.cpp" compile="1" resource="0"
                 file="Source/PluginEditor.cpp"/>
           <FILE id="AplGj8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+          <FILE id="AWt9UA" name="TimedSlider.cpp" compile="1" resource="0" file="Source/TimedSlider.cpp"/>
+          <FILE id="EhMuYX" name="TimedSlider.h" compile="0" resource="0" file="Source/TimedSlider.h"/>
         </GROUP>
         <GROUP id="{12677FA0-E17E-662F-510D-C631262253F1}" name="Metering">
           <FILE id="ACsFw1" name="Meter.cpp" compile="1" resource="0" file="Source/Meter.cpp"/>

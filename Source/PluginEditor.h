@@ -4,6 +4,7 @@
 #include "PluginProcessor.h"
 #include "CustomLookAndFeel.h"
 #include "Meter.h"
+#include "TimedSlider.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
@@ -33,7 +34,8 @@ private:
     // Sliders
     Slider gainINSlider, gainOUTSlider;
     Slider BitCrushSlider, AmountBCSlider, FreqBCSlider, DryWetBCSlider, WaveformBCSlider;
-    Slider DownSampleSlider, DryWetDSSlider, FreqDSSlider, AmountDSSlider, WaveformDSSlider;
+    Slider DownSampleSlider, FreqDSSlider, AmountDSSlider, WaveformDSSlider;
+    TimedSlider DryWetDSSlider;
 
     // Slider attachments
     std::unique_ptr<SliderAttachment> gainINAttachment, gainOUTAttachment;
