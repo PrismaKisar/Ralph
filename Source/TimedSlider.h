@@ -15,7 +15,7 @@ private:
 
     double lastValidValue = 0.0;
     int64 lastUpdateTimestamp = 0;
-    bool drawable = false;
+    bool drawable;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimedSlider)
 };

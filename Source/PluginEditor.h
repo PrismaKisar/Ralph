@@ -33,9 +33,8 @@ private:
 
     // Sliders
     Slider gainINSlider, gainOUTSlider;
-    Slider BitCrushSlider, AmountBCSlider, FreqBCSlider, DryWetBCSlider, WaveformBCSlider;
-    Slider DownSampleSlider, FreqDSSlider, AmountDSSlider, WaveformDSSlider;
-    TimedSlider DryWetDSSlider;
+    TimedSlider BitCrushSlider, AmountBCSlider, FreqBCSlider, DryWetBCSlider, WaveformBCSlider;
+    TimedSlider DownSampleSlider, AmountDSSlider, FreqDSSlider, DryWetDSSlider, WaveformDSSlider;
 
     // Slider attachments
     std::unique_ptr<SliderAttachment> gainINAttachment, gainOUTAttachment;

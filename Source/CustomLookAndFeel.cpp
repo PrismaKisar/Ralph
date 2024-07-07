@@ -118,10 +118,9 @@ void CustomLookAndFeel::drawTimedSliderOverlay(Graphics& g, Slider& slider, int 
         int rectX = (width - rectWidth) / 2;
         int rectY = (height - rectHeight);
 
-        Colour rectColor = Colours::darkgrey;
+        Colour rectColor = Colour(0x70555555);
         Colour textColor = Colours::white;
 
-        g.setOpacity(0.3);
         g.setColour(rectColor);
         g.fillRoundedRectangle(rectX, rectY, rectWidth, rectHeight, 5.0f);
 

@@ -1,7 +1,7 @@
 #include "TimedSlider.h"
 
-TimedSlider::TimedSlider() {
-    startTimerHz(2);
+TimedSlider::TimedSlider() : drawable(false) {
+    startTimerHz(4);
 }
 
 TimedSlider::~TimedSlider() {
@@ -14,7 +14,7 @@ void TimedSlider::setValueWithTimeCheck(double newValue) {
         lastValidValue = newValue;
         lastUpdateTimestamp = currentTime;
         drawable = true;
-    } else if (currentTime - lastUpdateTimestamp < 1000) {
+    } if (currentTime - lastUpdateTimestamp < 1000) {
         drawable = true;
     } else {
         drawable = false;
