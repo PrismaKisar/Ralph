@@ -2,15 +2,13 @@
 
 #include <JuceHeader.h>
 
-#define FPS 4
-
-class TimedSlider : public Slider, Timer {
+class TimedSlider : public Slider, private Timer {
 public:
     TimedSlider();
-    ~TimedSlider() {}
+    ~TimedSlider() override;
 
     void setValueWithTimeCheck(double newValue);
-    bool isDrawable();
+    bool isDrawable() const;
 
 private:
     void timerCallback() override;
@@ -21,4 +19,3 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimedSlider)
 };
-

@@ -1,25 +1,30 @@
 #include "TimedSlider.h"
 
 TimedSlider::TimedSlider() {
-    startTimerHz(FPS);
+    startTimerHz(2);
 }
 
-void TimedSlider::timerCallback() {
+TimedSlider::~TimedSlider() {
+    stopTimer();
 }
 
 void TimedSlider::setValueWithTimeCheck(double newValue) {
     int64 currentTime = Time::currentTimeMillis();
-    if (std::abs(newValue - lastValidValue) > 0.0001 || currentTime - lastUpdateTimestamp > 2500) {
+    if (std::abs(newValue - lastValidValue) > 0.1) {
         lastValidValue = newValue;
         lastUpdateTimestamp = currentTime;
-        setValue(newValue);
+        drawable = true;
+    } else if (currentTime - lastUpdateTimestamp < 1000) {
         drawable = true;
     } else {
         drawable = false;
     }
 }
 
-bool TimedSlider::isDrawable() {
+bool TimedSlider::isDrawable() const {
     return drawable;
 }
 
+void TimedSlider::timerCallback() {
+    repaint();
+}
