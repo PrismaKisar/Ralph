@@ -24,27 +24,23 @@ private:
 
     std::unique_ptr<Meter> meterIN, meterOUT;
 
-    // Image assets
     Image backgroundTexture, glassTexture, screwImage;
     Image ralphWrite, bitCrushWrite, downSampleWrite;
     Image bitsWrite, hertzWrite, frequencyWrite, amountWrite, dryWetWrite, waveformWrite;
     Image zeroImage, hundredImage, pointOOneImage, sixtyImage, fourImage, tenKImage, twoImage, twentyFourImage, fiveHundredImage, fourFourKImage;
     Image triImage, sinImage, sawUpImage, sawDownImage, quadImage, shImage;
 
-    // Sliders
-    Slider gainINSlider, gainOUTSlider;
-    TimedSlider BitCrushSlider, AmountBCSlider, FreqBCSlider, DryWetBCSlider, WaveformBCSlider;
-    TimedSlider DownSampleSlider, AmountDSSlider, FreqDSSlider, DryWetDSSlider, WaveformDSSlider;
+    TimedSlider gainINSlider, gainOUTSlider;
+    TimedSlider BitCrushSlider, AmountBCSlider, FreqBCSlider, DryWetBCSlider;
+    TimedSlider DownSampleSlider, AmountDSSlider, FreqDSSlider, DryWetDSSlider;
+    Slider WaveformBCSlider, WaveformDSSlider;
 
-    // Slider attachments
     std::unique_ptr<SliderAttachment> gainINAttachment, gainOUTAttachment;
     std::unique_ptr<SliderAttachment> BitCrushAttachment, AmountBCAttachment, FreqBCAttachment, DryWetBCAttachment, WaveformBCAttachment;
     std::unique_ptr<SliderAttachment> DownSampleAttachment, DryWetDSAttachment, FreqDSAttachment, AmountDSAttachment, WaveformDSAttachment;
 
-    // Helper functions for setting up sliders
     void setupSlider(Slider& slider, Slider::SliderStyle style, int x, int y, int w, int h, CustomLookAndFeel& lookAndFeel);
-
-    // Helper functions for drawing elements
+    
     void drawBackground(Graphics& g);
     void drawMacroSections(Graphics& g);
     void drawMeters(Graphics& g);

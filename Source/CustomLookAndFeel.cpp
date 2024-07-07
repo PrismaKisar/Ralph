@@ -1,6 +1,5 @@
 #include "CustomLookAndFeel.h"
 
-// Constructor to load images
 CustomLookAndFeel::CustomLookAndFeel() {
     littleKnob = juce::ImageFileFormat::loadFrom(BinaryData::littleKnob_png, BinaryData::littleKnob_pngSize);
     holeImage = juce::ImageFileFormat::loadFrom(BinaryData::hole_png, BinaryData::hole_pngSize);
@@ -8,7 +7,6 @@ CustomLookAndFeel::CustomLookAndFeel() {
     pointer = juce::ImageFileFormat::loadFrom(BinaryData::pointer_png, BinaryData::pointer_pngSize);
 }
 
-// Rotary
 void CustomLookAndFeel::drawRotaryTicks(Graphics& g, float centreX, float centreY, float radius, float rotaryStartAngle, float rotaryEndAngle, int numTicks) {
     const float tickLength = 3.0f;
     const float tickThickness = 2.0f;
@@ -65,11 +63,9 @@ void CustomLookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, i
     const double rotation = rotaryStartAngle + sliderPosProportional * (rotaryEndAngle - rotaryStartAngle);
     drawRotaryPointer(g, rotation, x, y, width, height);
 
-    // Disegna l'overlay se è un TimedSlider
     drawTimedSliderOverlay(g, slider, width, height);
 }
 
-// Linear
 void CustomLookAndFeel::drawLinearTicks(Graphics& g, int x, int width) {
     g.setColour(Colours::grey);
     float tickHeight = 3.0f;
@@ -100,7 +96,6 @@ void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, i
     drawLinearTicks(g, x, width);
     drawLinearKnob(g, x, knobX);
 
-    // Disegna l'overlay se è un TimedSlider
     drawTimedSliderOverlay(g, slider, width, height);
 }
 
@@ -113,8 +108,8 @@ void CustomLookAndFeel::drawTimedSliderOverlay(Graphics& g, Slider& slider, int 
         
         String sliderValue = String(timedSlider->getValue());
 
-        int rectWidth = width / 2;
-        int rectHeight = height / 4;
+        int rectWidth = jmax(width / 2, 30);
+        int rectHeight = jmax(height / 4, 20);
         int rectX = (width - rectWidth) / 2;
         int rectY = (height - rectHeight);
 
@@ -124,7 +119,7 @@ void CustomLookAndFeel::drawTimedSliderOverlay(Graphics& g, Slider& slider, int 
         g.setColour(rectColor);
         g.fillRoundedRectangle(rectX, rectY, rectWidth, rectHeight, 5.0f);
 
-        float fontSize = jmin(10.0f, (float)height * 0.2f);
+        float fontSize = jmin(10.0f, (float)height * 0.5f);
         g.setFont(Font(fontSize));
 
         g.setOpacity(1);

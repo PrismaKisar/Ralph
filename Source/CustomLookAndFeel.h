@@ -20,7 +20,6 @@ private:
 
     int numTicks = 15;
 
-    // Helper functions
     void drawRotaryTicks(Graphics& g, float centreX, float centreY, float radius, float rotaryStartAngle, float rotaryEndAngle, int numTicks);
     void drawRotaryKnob(Graphics& g, int x, int y, int width, int height);
     void drawRotaryPointer(Graphics& g, float rotation, int x, int y, int width, int height);
