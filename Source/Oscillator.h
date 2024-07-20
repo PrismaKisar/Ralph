@@ -27,6 +27,7 @@ private:
 
     double currentPhase;
     double samplePeriod;
+    double phaseIncrement;
     float prevValue;
     bool newCycle;
 

@@ -2,13 +2,14 @@
 
 Oscillator::Oscillator(double defaultFrequency, int defaultWaveform) :
     waveform(defaultWaveform),
-    currentPhase(0.0),
-    samplePeriod(0.0),
+    currentPhase(0),
+    samplePeriod(0),
+    phaseIncrement(0),
     prevValue(0.0f),
     newCycle(true)
 {
     frequency.setTargetValue(defaultFrequency);
-    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Inizializza il seme del generatore di numeri casuali
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
 void Oscillator::prepareToPlay(double sampleRate) {
@@ -31,9 +32,8 @@ void Oscillator::getNextAudioBlock(AudioBuffer<double>& buffer, int numSamples) 
 
     for (int smp = 0; smp < numSamples; ++smp) {
         const double sampleValue = getNextAudioSample();
-        for (int ch = 0; ch < numChannels; ++ch) {
+        for (int ch = 0; ch < numChannels; ++ch)
             data[ch][smp] = sampleValue;
-        }
     }
 }
 
@@ -59,7 +59,6 @@ float Oscillator::getNextAudioSample() {
         case SAMPLE_AND_HOLD:
             if (newCycle) {
                 sampleValue = 2.0 * (std::rand() / static_cast<double>(RAND_MAX)) - 1.0;
-                DBG(sampleValue);
                 prevValue = sampleValue;
                 newCycle = false;
             } else {
@@ -71,11 +70,12 @@ float Oscillator::getNextAudioSample() {
             break;
     }
 
-    double phaseIncrement = frequency.getNextValue() * samplePeriod;
+    phaseIncrement = frequency.getNextValue() * samplePeriod;
     currentPhase += phaseIncrement;
     if (currentPhase >= 1.0) {
-        currentPhase -= 1.0;
+        currentPhase -= static_cast<int>(currentPhase);
         newCycle = true;
     }
+    
     return static_cast<float>(sampleValue);
 }
