@@ -20,8 +20,8 @@ void DownSample::releaseResources() {
 }
 
 void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& modulation) {
-    dsp::AudioBlock<float> inputBlock(buffer);
-    dryWet.pushDrySamples(inputBlock);
+    dsp::AudioBlock<float> audioBlock(buffer);
+    dryWet.pushDrySamples(audioBlock);
     
     int numSamples = buffer.getNumSamples();
     int numChannels = buffer.getNumChannels();
@@ -45,8 +45,7 @@ void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& m
         if (t >= ratio) t = 0;
     }
     
-    dsp::AudioBlock<float> outputBlock(buffer);
-    dryWet.mixWetSamples(outputBlock);
+    dryWet.mixWetSamples(audioBlock);
 }
 
 void DownSample::setDryWet(float newValue) {

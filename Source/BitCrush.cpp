@@ -9,8 +9,8 @@ void BitCrush::prepare(const dsp::ProcessSpec& spec) {
 }
 
 void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<double>& modulation) {
-    dsp::AudioBlock<float> inputBlock(buffer);
-    dryWet.pushDrySamples(inputBlock);
+    dsp::AudioBlock<float> audioBlock(buffer);
+    dryWet.pushDrySamples(audioBlock);
     
     const auto numSamples = buffer.getNumSamples();
     const auto numCh = buffer.getNumChannels();
@@ -23,8 +23,7 @@ void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<
         for (int ch = 0; ch < numCh; ++ch)
             bufferData[ch][smp] = crush(bufferData[ch][smp], jmin(modData[jmin(ch, numModCh - 1)][smp], 24.0));
     
-    dsp::AudioBlock<float> outputBlock(buffer);
-    dryWet.mixWetSamples(outputBlock);
+    dryWet.mixWetSamples(audioBlock);
 }
 
 float BitCrush::crush(float value, double bits) {
