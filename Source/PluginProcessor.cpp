@@ -9,7 +9,7 @@ RalphAudioProcessor::RalphAudioProcessor() :
     BCModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount),
     downSample(),
     lfoDS(Parameters::defaultFreq, Parameters::defaultWaveform),
-    DSModCtrl(Parameters::defaultBitDepth, Parameters::defaultAmount)
+    DSModCtrl(Parameters::defaultSR, Parameters::defaultAmount)
 {
     GainIn.setCurrentAndTargetValue(1.0f);
     GainOut.setCurrentAndTargetValue(1.0f);
