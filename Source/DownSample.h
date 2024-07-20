@@ -15,6 +15,8 @@ public:
 private:
     AudioBuffer<float> aliasingBuffer;
     dsp::DryWetMixer<float> dryWet;
+    std::vector<float> previousValue;
+
     
     double currentSampleRate;
     double ratio;
