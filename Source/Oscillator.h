@@ -1,6 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
-#include <random>
+#include <cstdlib>
 #include <ctime>
 
 constexpr int SINUSOID = 0;
@@ -29,9 +29,6 @@ private:
     double samplePeriod;
     float prevValue;
     bool newCycle;
-    std::mt19937 gen;
-    std::uniform_real_distribution<double> dis{-1.0, 1.0};
-
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscillator)
 };
