@@ -29,7 +29,6 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor(RalphAudioProcessor& p, Aud
     sixtyImage = juce::ImageFileFormat::loadFrom(BinaryData::sixty_png, BinaryData::sixty_pngSize);
     fourImage = juce::ImageFileFormat::loadFrom(BinaryData::four_png, BinaryData::four_pngSize);
     tenKImage = juce::ImageFileFormat::loadFrom(BinaryData::tenK_png, BinaryData::tenK_pngSize);
-    twoImage = juce::ImageFileFormat::loadFrom(BinaryData::two_png, BinaryData::two_pngSize);
     twentyFourImage = juce::ImageFileFormat::loadFrom(BinaryData::twentyFour_png, BinaryData::twentyFour_pngSize);
     fiveHundredImage = juce::ImageFileFormat::loadFrom(BinaryData::fiveHundred_png, BinaryData::fiveHundred_pngSize);
     fourFourKImage = juce::ImageFileFormat::loadFrom(BinaryData::fourFourK_png, BinaryData::fourFourK_pngSize);
@@ -108,7 +107,7 @@ void RalphAudioProcessorEditor::paint(juce::Graphics& g) {
     g.drawImageWithin(zeroImage, 467, 417, 9, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fourImage, 203, 417, 10, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(tenKImage, 520, 417, 18, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(twoImage, 155, 235, 10, 10, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(fourImage, 155, 235, 10, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(twentyFourImage, 305, 235, 18, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fiveHundredImage, 470, 235, 20, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fourFourKImage, 620, 235, 27, 10, juce::RectanglePlacement::stretchToFit);

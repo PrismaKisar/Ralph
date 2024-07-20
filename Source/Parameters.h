@@ -5,7 +5,7 @@ namespace Parameters {
 
     // CONSTANTS
     constexpr float maxBitDepth = 24.0f;
-    constexpr float minBitDepth = 2.0f;
+    constexpr float minBitDepth = 4.0f;
     constexpr float modBitRange = 4.0f;
     constexpr float maxSR = 44100.0f;
     constexpr float minSR = 500.0f;
