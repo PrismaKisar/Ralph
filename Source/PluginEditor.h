@@ -6,6 +6,8 @@
 #include "Meter.h"
 #include "TimedSlider.h"
 
+#define SCALE_FACTOR 1.4f
+
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 class RalphComponent : public Component {
@@ -61,6 +63,6 @@ private:
     AudioProcessorValueTreeState& parameters;
     ApplicationProperties applicationProperties;
     
-    static constexpr int originalWidth  {800};
-    static constexpr int originalHeight {600};
+    static constexpr int originalWidth  {static_cast<int>(800 * SCALE_FACTOR)};
+    static constexpr int originalHeight {static_cast<int>(600 * SCALE_FACTOR)};
 };

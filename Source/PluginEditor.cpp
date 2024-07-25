@@ -40,20 +40,21 @@ RalphComponent::RalphComponent(RalphAudioProcessor& p, AudioProcessorValueTreeSt
 
 
     // Setup sliders
-    setupSlider(gainINSlider, Slider::RotaryVerticalDrag, 25, 500, 30, 30, lookAndFeel);
-    setupSlider(gainOUTSlider, Slider::RotaryVerticalDrag, 745, 500, 30, 30, lookAndFeel);
+    setupSlider(gainINSlider, Slider::RotaryVerticalDrag, 25 * SCALE_FACTOR, 500 * SCALE_FACTOR, 30 * SCALE_FACTOR, 30 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(gainOUTSlider, Slider::RotaryVerticalDrag, 745 * SCALE_FACTOR, 500 * SCALE_FACTOR, 30 * SCALE_FACTOR, 30 * SCALE_FACTOR, lookAndFeel);
 
-    setupSlider(BitCrushSlider, Slider::LinearHorizontal, 140, 250, 200, 30, lookAndFeel);
-    setupSlider(AmountBCSlider, Slider::RotaryVerticalDrag, 140, 340, 80, 80, lookAndFeel);
-    setupSlider(FreqBCSlider, Slider::RotaryVerticalDrag, 270, 350, 60, 60, lookAndFeel);
-    setupSlider(WaveformBCSlider, Slider::RotaryVerticalDrag, 150, 470, 60, 60, lookAndFeelLessTick);
-    setupSlider(DryWetBCSlider, Slider::RotaryVerticalDrag, 260, 460, 80, 80, lookAndFeel);
+    setupSlider(BitCrushSlider, Slider::LinearHorizontal, 140 * SCALE_FACTOR, 250 * SCALE_FACTOR, 200 * SCALE_FACTOR, 30 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(AmountBCSlider, Slider::RotaryVerticalDrag, 140 * SCALE_FACTOR, 340 * SCALE_FACTOR, 80 * SCALE_FACTOR, 80 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(FreqBCSlider, Slider::RotaryVerticalDrag, 270 * SCALE_FACTOR, 350 * SCALE_FACTOR, 60 * SCALE_FACTOR, 60 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(WaveformBCSlider, Slider::RotaryVerticalDrag, 150 * SCALE_FACTOR, 470 * SCALE_FACTOR, 60 * SCALE_FACTOR, 60 * SCALE_FACTOR, lookAndFeelLessTick);
+    setupSlider(DryWetBCSlider, Slider::RotaryVerticalDrag, 260 * SCALE_FACTOR, 460 * SCALE_FACTOR, 80 * SCALE_FACTOR, 80 * SCALE_FACTOR, lookAndFeel);
 
-    setupSlider(DownSampleSlider, Slider::LinearHorizontal, 460, 250, 200, 30, lookAndFeel);
-    setupSlider(AmountDSSlider, Slider::RotaryVerticalDrag, 460, 340, 80, 80, lookAndFeel);
-    setupSlider(FreqDSSlider, Slider::RotaryVerticalDrag, 590, 350, 60, 60, lookAndFeel);
-    setupSlider(WaveformDSSlider, Slider::RotaryVerticalDrag, 470, 470, 60, 60, lookAndFeelLessTick);
-    setupSlider(DryWetDSSlider, Slider::RotaryVerticalDrag, 580, 460, 80, 80, lookAndFeel);
+    setupSlider(DownSampleSlider, Slider::LinearHorizontal, 460 * SCALE_FACTOR, 250 * SCALE_FACTOR, 200 * SCALE_FACTOR, 30 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(AmountDSSlider, Slider::RotaryVerticalDrag, 460 * SCALE_FACTOR, 340 * SCALE_FACTOR, 80 * SCALE_FACTOR, 80 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(FreqDSSlider, Slider::RotaryVerticalDrag, 590 * SCALE_FACTOR, 350 * SCALE_FACTOR, 60 * SCALE_FACTOR, 60 * SCALE_FACTOR, lookAndFeel);
+    setupSlider(WaveformDSSlider, Slider::RotaryVerticalDrag, 470 * SCALE_FACTOR, 470 * SCALE_FACTOR, 60 * SCALE_FACTOR, 60 * SCALE_FACTOR, lookAndFeelLessTick);
+    setupSlider(DryWetDSSlider, Slider::RotaryVerticalDrag, 580 * SCALE_FACTOR, 460 * SCALE_FACTOR, 80 * SCALE_FACTOR, 80 * SCALE_FACTOR, lookAndFeel);
+
     
 
     // Attach sliders
@@ -75,12 +76,12 @@ RalphComponent::RalphComponent(RalphAudioProcessor& p, AudioProcessorValueTreeSt
     // Setup meters
     meterIN = std::make_unique<Meter>();
     addAndMakeVisible(meterIN.get());
-    meterIN->setBounds(32, 122, 16, 366);
+    meterIN->setBounds(32 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR);
     meterIN->connectTo(audioProcessor.envelopeIN);
 
     meterOUT = std::make_unique<Meter>();
     addAndMakeVisible(meterOUT.get());
-    meterOUT->setBounds(752, 122, 16, 366);
+    meterOUT->setBounds(752 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR);
     meterOUT->connectTo(audioProcessor.envelopeOUT);
 }
 
@@ -94,48 +95,46 @@ void RalphComponent::paint(juce::Graphics& g) {
     drawTextures(g);
     drawScrews(g);
     
-    g.drawImageWithin(zeroImage, 270, 535, 7, 8, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(zeroImage, 590, 535, 7, 8, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(hundredImage, 320, 535, 15, 8, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(hundredImage, 640, 535, 15, 8, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(pointOOneImage, 270, 410, 17, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(pointOOneImage, 590, 410, 17, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sixtyImage, 315, 410, 13, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sixtyImage, 635, 410, 13, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(zeroImage, 147, 417, 9, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(zeroImage, 467, 417, 9, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(fourImage, 203, 417, 10, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(tenKImage, 520, 417, 18, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(fourImage, 155, 235, 10, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(twentyFourImage, 305, 235, 18, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(fiveHundredImage, 470, 235, 20, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(fourFourKImage, 620, 235, 27, 10, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(zeroImage, 270 * SCALE_FACTOR, 535 * SCALE_FACTOR, 7 * SCALE_FACTOR, 8 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(zeroImage, 590 * SCALE_FACTOR, 535 * SCALE_FACTOR, 7 * SCALE_FACTOR, 8 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(hundredImage, 320 * SCALE_FACTOR, 535 * SCALE_FACTOR, 15 * SCALE_FACTOR, 8 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(hundredImage, 640 * SCALE_FACTOR, 535 * SCALE_FACTOR, 15 * SCALE_FACTOR, 8 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(pointOOneImage, 270 * SCALE_FACTOR, 410 * SCALE_FACTOR, 17 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(pointOOneImage, 590 * SCALE_FACTOR, 410 * SCALE_FACTOR, 17 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sixtyImage, 315 * SCALE_FACTOR, 410 * SCALE_FACTOR, 13 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sixtyImage, 635 * SCALE_FACTOR, 410 * SCALE_FACTOR, 13 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(zeroImage, 147 * SCALE_FACTOR, 417 * SCALE_FACTOR, 9 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(zeroImage, 467 * SCALE_FACTOR, 417 * SCALE_FACTOR, 9 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(fourImage, 203 * SCALE_FACTOR, 417 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(tenKImage, 520 * SCALE_FACTOR, 417 * SCALE_FACTOR, 18 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(fourImage, 155 * SCALE_FACTOR, 235 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(twentyFourImage, 305 * SCALE_FACTOR, 235 * SCALE_FACTOR, 18 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(fiveHundredImage, 470 * SCALE_FACTOR, 235 * SCALE_FACTOR, 20 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(fourFourKImage, 620 * SCALE_FACTOR, 235 * SCALE_FACTOR, 27 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
     
     g.setOpacity(0.7);
-    g.drawImageWithin(triImage, 135, 493, 10, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(triImage, 455, 493, 10, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sawUpImage, 155, 460, 12, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sawUpImage, 475, 460, 12, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sawDownImage, 193, 460, 12, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sawDownImage, 513, 460, 12, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(quadImage, 215, 493, 10, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(quadImage, 535, 493, 10, 10, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(triImage, 135 * SCALE_FACTOR, 493 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(triImage, 455 * SCALE_FACTOR, 493 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sawUpImage, 155 * SCALE_FACTOR, 460 * SCALE_FACTOR, 12 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sawUpImage, 475 * SCALE_FACTOR, 460 * SCALE_FACTOR, 12 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sawDownImage, 193 * SCALE_FACTOR, 460 * SCALE_FACTOR, 12 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sawDownImage, 513 * SCALE_FACTOR, 460 * SCALE_FACTOR, 12 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(quadImage, 215 * SCALE_FACTOR, 493 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(quadImage, 535 * SCALE_FACTOR, 493 * SCALE_FACTOR, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 
     g.setOpacity(0.6);
-    g.drawImageWithin(sinImage, 150, 528, 17, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(sinImage, 470, 528, 17, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(shImage, 193, 528, 20, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(shImage, 513, 528, 20, 10, juce::RectanglePlacement::stretchToFit);
-
+    g.drawImageWithin(sinImage, 150 * SCALE_FACTOR, 528 * SCALE_FACTOR, 17 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(sinImage, 470 * SCALE_FACTOR, 528 * SCALE_FACTOR, 17 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(shImage, 193 * SCALE_FACTOR, 528 * SCALE_FACTOR, 20 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(shImage, 513 * SCALE_FACTOR, 528 * SCALE_FACTOR, 20 * SCALE_FACTOR, 10 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 }
-
 void RalphComponent::resized() {
     
 }
 
 void RalphComponent::setupSlider(Slider& slider, Slider::SliderStyle style, int x, int y, int w, int h, CustomLookAndFeel& lookAndFeel) {
     slider.setSliderStyle(style);
-    slider.setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
+    slider.setTextBoxStyle(Slider::NoTextBox, false, 80 * SCALE_FACTOR, 20 * SCALE_FACTOR);
     addAndMakeVisible(&slider);
     slider.setBounds(x, y, w, h);
     slider.setLookAndFeel(&lookAndFeel);
@@ -147,57 +146,57 @@ void RalphComponent::drawBackground(Graphics& g) {
 }
 
 void RalphComponent::drawMacroSections(Graphics& g) {
-    Rectangle<float> bitCrushRectagle(100, 130, 280, 430);
-    Rectangle<float> downSampleRectagle(420, 130, 280, 430);
+    Rectangle<float> bitCrushRectagle(100 * SCALE_FACTOR, 130 * SCALE_FACTOR, 280 * SCALE_FACTOR, 430 * SCALE_FACTOR);
+    Rectangle<float> downSampleRectagle(420 * SCALE_FACTOR, 130 * SCALE_FACTOR, 280 * SCALE_FACTOR, 430 * SCALE_FACTOR);
     g.setColour(juce::Colour(DARK_GRAY));
-    g.fillRoundedRectangle(bitCrushRectagle, 10);
-    g.fillRoundedRectangle(downSampleRectagle, 10);
+    g.fillRoundedRectangle(bitCrushRectagle, 10 * SCALE_FACTOR);
+    g.fillRoundedRectangle(downSampleRectagle, 10 * SCALE_FACTOR);
 }
 
 void RalphComponent::drawMeters(Graphics& g) {
-    Rectangle<float> gainINRectangle(30, 120, 20, 370);
-    Rectangle<float> gainOUTRectangle(750, 120, 20, 370);
+    Rectangle<float> gainINRectangle(30 * SCALE_FACTOR, 120 * SCALE_FACTOR, 20 * SCALE_FACTOR, 370 * SCALE_FACTOR);
+    Rectangle<float> gainOUTRectangle(750 * SCALE_FACTOR, 120 * SCALE_FACTOR, 20 * SCALE_FACTOR, 370 * SCALE_FACTOR);
     g.setColour(juce::Colour(DARK_GRAY));
-    g.fillRoundedRectangle(gainINRectangle, 2);
-    g.fillRoundedRectangle(gainOUTRectangle, 2);
+    g.fillRoundedRectangle(gainINRectangle, 2 * SCALE_FACTOR);
+    g.fillRoundedRectangle(gainOUTRectangle, 2 * SCALE_FACTOR);
 }
 
 void RalphComponent::drawTexts(Graphics& g) {
-    Font font("times new roman", 16.0f, Font::plain);
+    Font font("times new roman", 16.0f * SCALE_FACTOR, Font::plain);
     g.setFont(font);
     g.setColour(Colours::white);
-    g.drawText("IN", 20, 97, 40, 20, Justification::horizontallyCentred);
-    g.drawText("OUT", 740, 97, 40, 20, Justification::horizontallyCentred);
+    g.drawText("IN", 20 * SCALE_FACTOR, 97 * SCALE_FACTOR, 40 * SCALE_FACTOR, 20 * SCALE_FACTOR, Justification::horizontallyCentred);
+    g.drawText("OUT", 740 * SCALE_FACTOR, 97 * SCALE_FACTOR, 40 * SCALE_FACTOR, 20 * SCALE_FACTOR, Justification::horizontallyCentred);
 
-    g.drawImageWithin(amountWrite, 143, 310, 70, 25, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(amountWrite, 463, 310, 70, 25, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(frequencyWrite, 262, 320, 70, 25, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(frequencyWrite, 582, 320, 70, 25, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(dryWetWrite, 270, 430, 60, 30, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(dryWetWrite, 590, 430, 60, 30, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(bitsWrite, 220, 275, 40, 20, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(hertzWrite, 530, 275, 50, 25, juce::RectanglePlacement::centred);
+    g.drawImageWithin(amountWrite, 143 * SCALE_FACTOR, 310 * SCALE_FACTOR, 70 * SCALE_FACTOR, 25 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(amountWrite, 463 * SCALE_FACTOR, 310 * SCALE_FACTOR, 70 * SCALE_FACTOR, 25 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(frequencyWrite, 262 * SCALE_FACTOR, 320 * SCALE_FACTOR, 70 * SCALE_FACTOR, 25 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(frequencyWrite, 582 * SCALE_FACTOR, 320 * SCALE_FACTOR, 70 * SCALE_FACTOR, 25 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(dryWetWrite, 270 * SCALE_FACTOR, 430 * SCALE_FACTOR, 60 * SCALE_FACTOR, 30 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(dryWetWrite, 590 * SCALE_FACTOR, 430 * SCALE_FACTOR, 60 * SCALE_FACTOR, 30 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(bitsWrite, 220 * SCALE_FACTOR, 275 * SCALE_FACTOR, 40 * SCALE_FACTOR, 20 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(hertzWrite, 530 * SCALE_FACTOR, 275 * SCALE_FACTOR, 50 * SCALE_FACTOR, 25 * SCALE_FACTOR, juce::RectanglePlacement::centred);
 
-    g.drawImageWithin(ralphWrite, 130, 0, 280, 130, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(bitCrushWrite, 130, 150, 210, 60, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(ralphWrite, 130 * SCALE_FACTOR, 0 * SCALE_FACTOR, 280 * SCALE_FACTOR, 130 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(bitCrushWrite, 130 * SCALE_FACTOR, 150 * SCALE_FACTOR, 210 * SCALE_FACTOR, 60 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(downSampleWrite, 440 * SCALE_FACTOR, 150 * SCALE_FACTOR, 230 * SCALE_FACTOR, 70 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphComponent::drawTextures(Graphics& g) {
     g.setOpacity(0.12);
-    g.drawImageWithin(backgroundTexture, 0, 0, 800, 600, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(backgroundTexture, 0 * SCALE_FACTOR, 0 * SCALE_FACTOR, 800 * SCALE_FACTOR, 600 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 
     g.setOpacity(1);
-    g.drawImageWithin(glassTexture, 32, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(glassTexture, 752, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(glassTexture, 32 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(glassTexture, 752 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphComponent::drawScrews(Graphics& g) {
     g.setOpacity(1);
-    g.drawImageWithin(screwImage, 10, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(screwImage, 775, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(screwImage, 775, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(screwImage, 10, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(screwImage, 10 * SCALE_FACTOR, 10 * SCALE_FACTOR, 17 * SCALE_FACTOR, 17 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(screwImage, 775 * SCALE_FACTOR, 10 * SCALE_FACTOR, 17 * SCALE_FACTOR, 17 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(screwImage, 775 * SCALE_FACTOR, 575 * SCALE_FACTOR, 17 * SCALE_FACTOR, 17 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(screwImage, 10 * SCALE_FACTOR, 575 * SCALE_FACTOR, 17 * SCALE_FACTOR, 17 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 }
 
 
