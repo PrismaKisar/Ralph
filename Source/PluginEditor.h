@@ -59,6 +59,7 @@ public:
 private:
     RalphComponent ralphComponent;
     AudioProcessorValueTreeState& parameters;
+    ApplicationProperties applicationProperties;
     
     static constexpr int originalWidth  {800};
     static constexpr int originalHeight {600};

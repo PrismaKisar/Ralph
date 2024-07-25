@@ -184,7 +184,7 @@ void RalphComponent::drawTexts(Graphics& g) {
 }
 
 void RalphComponent::drawTextures(Graphics& g) {
-    g.setOpacity(0.25);
+    g.setOpacity(0.12);
     g.drawImageWithin(backgroundTexture, 0, 0, 800, 600, juce::RectanglePlacement::stretchToFit);
 
     g.setOpacity(1);
@@ -206,17 +206,31 @@ AudioProcessorEditor(p), ralphComponent(p, vts), parameters(vts)
 {
     addAndMakeVisible(ralphComponent);
     
+    PropertiesFile::Options options;
+    options.applicationName = ProjectInfo::projectName;
+    options.commonToAllUsers = true;
+    options.filenameSuffix = "settings";
+    options.osxLibrarySubFolder = "Application Support";
+    applicationProperties.setStorageParameters(options);
+    
     if (auto* costrainer = getConstrainer()) {
         costrainer->setFixedAspectRatio(static_cast<double>(originalWidth) / static_cast<double>(originalHeight));
         costrainer->setSizeLimits(originalWidth / 4, originalHeight / 4, originalWidth * 2, originalHeight * 2);
     }
     
+    auto sizeRatio{1.f};
+    if (auto* properties = applicationProperties.getCommonSettings(true))
+        sizeRatio = properties->getDoubleValue("sizeRatio", 1.0);
+    
     setResizable(true, true);
-    setSize(originalWidth, originalHeight);
+    setSize(static_cast<float>(originalWidth * sizeRatio), static_cast<float>(originalHeight * sizeRatio));
 }
 
 void WrappedRalphAudioProcessorEditor::resized() {
     const auto scaleFactor = static_cast<float>(getWidth()) / originalWidth;
+    if (auto* properties = applicationProperties.getCommonSettings(true))
+        properties->setValue("sizeRatio", scaleFactor);
+
     ralphComponent.setTransform(AffineTransform::scale(scaleFactor));
     ralphComponent.setBounds(0, 0, originalWidth, originalHeight);
 }
