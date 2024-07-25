@@ -8,10 +8,10 @@
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
-class RalphAudioProcessorEditor : public juce::AudioProcessorEditor {
+class RalphComponent : public Component {
 public:
-    RalphAudioProcessorEditor(RalphAudioProcessor&, AudioProcessorValueTreeState&);
-    ~RalphAudioProcessorEditor() override;
+    RalphComponent(RalphAudioProcessor&, AudioProcessorValueTreeState&);
+    ~RalphComponent() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
@@ -48,5 +48,18 @@ private:
     void drawTextures(Graphics& g);
     void drawScrews(Graphics& g);
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RalphAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RalphComponent)
+};
+
+class WrappedRalphAudioProcessorEditor : public AudioProcessorEditor {
+public:
+    WrappedRalphAudioProcessorEditor(RalphAudioProcessor&, AudioProcessorValueTreeState&);
+    void resized() override;
+    
+private:
+    RalphComponent ralphComponent;
+    AudioProcessorValueTreeState& parameters;
+    
+    static constexpr int originalWidth  {800};
+    static constexpr int originalHeight {600};
 };

@@ -5,9 +5,8 @@
 constexpr int BG_GRAY = 0xFF2F2E29;
 constexpr int DARK_GRAY = 0xFF20221E;
 
-RalphAudioProcessorEditor::RalphAudioProcessorEditor(RalphAudioProcessor& p, AudioProcessorValueTreeState& vts)
-: AudioProcessorEditor(&p), audioProcessor(p), parameters(vts), lookAndFeel(), lookAndFeelLessTick() {
-    setSize(800, 600);
+RalphComponent::RalphComponent(RalphAudioProcessor& p, AudioProcessorValueTreeState& vts)
+: audioProcessor(p), parameters(vts), lookAndFeel(), lookAndFeelLessTick() {
     
     lookAndFeelLessTick.setNumTicks(6);
 
@@ -85,9 +84,9 @@ RalphAudioProcessorEditor::RalphAudioProcessorEditor(RalphAudioProcessor& p, Aud
     meterOUT->connectTo(audioProcessor.envelopeOUT);
 }
 
-RalphAudioProcessorEditor::~RalphAudioProcessorEditor() {}
+RalphComponent::~RalphComponent() {}
 
-void RalphAudioProcessorEditor::paint(juce::Graphics& g) {
+void RalphComponent::paint(juce::Graphics& g) {
     drawBackground(g);
     drawMacroSections(g);
     drawMeters(g);
@@ -130,9 +129,11 @@ void RalphAudioProcessorEditor::paint(juce::Graphics& g) {
 
 }
 
-void RalphAudioProcessorEditor::resized() {}
+void RalphComponent::resized() {
+    
+}
 
-void RalphAudioProcessorEditor::setupSlider(Slider& slider, Slider::SliderStyle style, int x, int y, int w, int h, CustomLookAndFeel& lookAndFeel) {
+void RalphComponent::setupSlider(Slider& slider, Slider::SliderStyle style, int x, int y, int w, int h, CustomLookAndFeel& lookAndFeel) {
     slider.setSliderStyle(style);
     slider.setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     addAndMakeVisible(&slider);
@@ -140,12 +141,12 @@ void RalphAudioProcessorEditor::setupSlider(Slider& slider, Slider::SliderStyle 
     slider.setLookAndFeel(&lookAndFeel);
 }
 
-void RalphAudioProcessorEditor::drawBackground(Graphics& g) {
+void RalphComponent::drawBackground(Graphics& g) {
     g.setColour(juce::Colour(BG_GRAY));
     g.fillAll();
 }
 
-void RalphAudioProcessorEditor::drawMacroSections(Graphics& g) {
+void RalphComponent::drawMacroSections(Graphics& g) {
     Rectangle<float> bitCrushRectagle(100, 130, 280, 430);
     Rectangle<float> downSampleRectagle(420, 130, 280, 430);
     g.setColour(juce::Colour(DARK_GRAY));
@@ -153,7 +154,7 @@ void RalphAudioProcessorEditor::drawMacroSections(Graphics& g) {
     g.fillRoundedRectangle(downSampleRectagle, 10);
 }
 
-void RalphAudioProcessorEditor::drawMeters(Graphics& g) {
+void RalphComponent::drawMeters(Graphics& g) {
     Rectangle<float> gainINRectangle(30, 120, 20, 370);
     Rectangle<float> gainOUTRectangle(750, 120, 20, 370);
     g.setColour(juce::Colour(DARK_GRAY));
@@ -161,7 +162,7 @@ void RalphAudioProcessorEditor::drawMeters(Graphics& g) {
     g.fillRoundedRectangle(gainOUTRectangle, 2);
 }
 
-void RalphAudioProcessorEditor::drawTexts(Graphics& g) {
+void RalphComponent::drawTexts(Graphics& g) {
     Font font("times new roman", 16.0f, Font::plain);
     g.setFont(font);
     g.setColour(Colours::white);
@@ -182,7 +183,7 @@ void RalphAudioProcessorEditor::drawTexts(Graphics& g) {
     g.drawImageWithin(downSampleWrite, 440, 150, 230, 70, juce::RectanglePlacement::stretchToFit);
 }
 
-void RalphAudioProcessorEditor::drawTextures(Graphics& g) {
+void RalphComponent::drawTextures(Graphics& g) {
     g.setOpacity(0.25);
     g.drawImageWithin(backgroundTexture, 0, 0, 800, 600, juce::RectanglePlacement::stretchToFit);
 
@@ -191,10 +192,32 @@ void RalphAudioProcessorEditor::drawTextures(Graphics& g) {
     g.drawImageWithin(glassTexture, 752, 122, 16, 366, juce::RectanglePlacement::stretchToFit);
 }
 
-void RalphAudioProcessorEditor::drawScrews(Graphics& g) {
+void RalphComponent::drawScrews(Graphics& g) {
     g.setOpacity(1);
     g.drawImageWithin(screwImage, 10, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(screwImage, 775, 10, 17, 17, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(screwImage, 775, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(screwImage, 10, 575, 17, 17, juce::RectanglePlacement::stretchToFit);
 }
+
+
+WrappedRalphAudioProcessorEditor::WrappedRalphAudioProcessorEditor(RalphAudioProcessor& p, AudioProcessorValueTreeState& vts) :
+AudioProcessorEditor(p), ralphComponent(p, vts), parameters(vts)
+{
+    addAndMakeVisible(ralphComponent);
+    
+    if (auto* costrainer = getConstrainer()) {
+        costrainer->setFixedAspectRatio(static_cast<double>(originalWidth) / static_cast<double>(originalHeight));
+        costrainer->setSizeLimits(originalWidth / 4, originalHeight / 4, originalWidth * 2, originalHeight * 2);
+    }
+    
+    setResizable(true, true);
+    setSize(originalWidth, originalHeight);
+}
+
+void WrappedRalphAudioProcessorEditor::resized() {
+    const auto scaleFactor = static_cast<float>(getWidth()) / originalWidth;
+    ralphComponent.setTransform(AffineTransform::scale(scaleFactor));
+    ralphComponent.setBounds(0, 0, originalWidth, originalHeight);
+}
+
