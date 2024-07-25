@@ -70,13 +70,17 @@ void CustomLookAndFeel::drawLinearTicks(Graphics& g, int x, int width) {
     g.setColour(Colours::grey);
     float tickHeight = 3.0f;
     float extendedTickHeight = tickHeight * 2;
-    float tickWidth = (width - 20) / 20.0f;
+    float tickWidth = (width - 5) / 20.0f;
 
     for (int i = 0; i < 20; ++i) {
-        float tickX = (x + 10) + i * tickWidth;
+        float tickX = (x + 5) + i * tickWidth;
         float currentTickHeight = (i == 0 || i == 19) ? extendedTickHeight : tickHeight;
         g.drawLine(tickX, 0, tickX, currentTickHeight, 2.0f);
     }
+   
+    // Delimitare il contesto grafico in rosso
+    g.setColour(Colours::red);
+    //g.drawRect(static_cast<float>(x), 0.0f, static_cast<float>(width), extendedTickHeight, 2.0f);
 }
 
 void CustomLookAndFeel::drawLinearKnob(Graphics& g, float knobX) {
@@ -101,8 +105,6 @@ void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, i
     drawTimedSliderOverlay(g, slider, width, height);
 
     // Rettangolo di debug
-    //g.setColour(Colours::red); // Scegli un colore evidente per il debug
-    //g.drawRect(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height), 2.0f); // Usa parametri float per evitare ambiguità
 }
 
 
