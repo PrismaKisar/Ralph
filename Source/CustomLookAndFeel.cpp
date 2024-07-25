@@ -79,25 +79,32 @@ void CustomLookAndFeel::drawLinearTicks(Graphics& g, int x, int width) {
     }
 }
 
-void CustomLookAndFeel::drawLinearKnob(Graphics& g, int x, float knobX) {
+void CustomLookAndFeel::drawLinearKnob(Graphics& g, float knobX) {
     g.setOpacity(1);
-    g.drawImageWithin(littleKnob, (int)knobX, 0, 30, 30, RectanglePlacement::stretchToFit);
+    g.drawImageWithin(littleKnob, static_cast<int>(knobX), 5, 20, 20, RectanglePlacement::stretchToFit);
 }
 
 void CustomLookAndFeel::drawLinearSlider(Graphics &g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, Slider::SliderStyle sliderStyle, Slider &slider) {
     g.setOpacity(0.5);
-    g.drawImageWithin(holeImage, 18, 11, 158, 7, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(holeImage, x + 2, y + 11, width - 4, 7, juce::RectanglePlacement::stretchToFit);
 
     maxSliderPos = 188;
     float proportion = (sliderPos - minSliderPos) / (maxSliderPos - minSliderPos);
-    float knobX = x + proportion * width - 30 / 2;
-    knobX = jmax((float)x, jmin(knobX, (float)(x + width - 30)));
+    float knobX = x + proportion * (width - 20); // Assicura che il knob copra l'intera larghezza dell'immagine
+
+    // Limita knobX entro i limiti del contesto grafico
+    knobX = jlimit(static_cast<float>(x), static_cast<float>(x + width - 20), knobX);
 
     drawLinearTicks(g, x, width);
-    drawLinearKnob(g, x, knobX);
+    drawLinearKnob(g, knobX);
 
     drawTimedSliderOverlay(g, slider, width, height);
+
+    // Rettangolo di debug
+    //g.setColour(Colours::red); // Scegli un colore evidente per il debug
+    //g.drawRect(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height), 2.0f); // Usa parametri float per evitare ambiguità
 }
+
 
 
 void CustomLookAndFeel::drawTimedSliderOverlay(Graphics& g, Slider& slider, int width, int height) {

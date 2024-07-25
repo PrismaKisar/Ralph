@@ -24,7 +24,7 @@ private:
     void drawRotaryKnob(Graphics& g, int x, int y, int width, int height);
     void drawRotaryPointer(Graphics& g, float rotation, int x, int y, int width, int height);
     void drawLinearTicks(Graphics& g, int x, int width);
-    void drawLinearKnob(Graphics& g, int x, float knobX);
+    void drawLinearKnob(Graphics& g, float knobX);
     void drawTimedSliderOverlay(Graphics& g, Slider& slider, int width, int height);
 
 
