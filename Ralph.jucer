@@ -33,7 +33,6 @@
           <FILE id="aiL9qM" name="downSample.png" compile="0" resource="1" file="Source/downSample.png"/>
           <FILE id="sMgkJr" name="bitCrush.png" compile="0" resource="1" file="Source/bitCrush.png"/>
           <FILE id="nf2dlr" name="littleKnob.png" compile="0" resource="1" file="Source/littleKnob.png"/>
-          <FILE id="jJ4lzD" name="knobBase.png" compile="0" resource="1" file="Source/knobBase.png"/>
           <FILE id="mVNml7" name="dryWet.png" compile="0" resource="1" file="Source/dryWet.png"/>
           <FILE id="IJUNJ5" name="frequency.png" compile="0" resource="1" file="Source/frequency.png"/>
           <FILE id="NC3cmT" name="amount.png" compile="0" resource="1" file="Source/amount.png"/>
