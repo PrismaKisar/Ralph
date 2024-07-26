@@ -17,9 +17,9 @@ private:
     dsp::DryWetMixer<float> dryWet;
     std::vector<float> previousValue;
 
-    
+    float lastValue = 0.0f;
     double currentSampleRate;
-    double ratio;
+    int ratio;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DownSample)
 };
