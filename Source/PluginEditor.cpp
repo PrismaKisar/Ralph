@@ -76,12 +76,12 @@ RalphComponent::RalphComponent(RalphAudioProcessor& p, AudioProcessorValueTreeSt
     // Setup meters
     meterIN = std::make_unique<Meter>();
     addAndMakeVisible(meterIN.get());
-    meterIN->setBounds(32 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR);
+    meterIN->setBounds(31 * SCALE_FACTOR, 121 * SCALE_FACTOR, 18 * SCALE_FACTOR, 368 * SCALE_FACTOR);
     meterIN->connectTo(audioProcessor.envelopeIN);
 
     meterOUT = std::make_unique<Meter>();
     addAndMakeVisible(meterOUT.get());
-    meterOUT->setBounds(752 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR);
+    meterOUT->setBounds(751 * SCALE_FACTOR, 121 * SCALE_FACTOR, 18 * SCALE_FACTOR, 368 * SCALE_FACTOR);
     meterOUT->connectTo(audioProcessor.envelopeOUT);
 }
 
@@ -187,8 +187,8 @@ void RalphComponent::drawTextures(Graphics& g) {
     g.drawImageWithin(backgroundTexture, 0 * SCALE_FACTOR, 0 * SCALE_FACTOR, 800 * SCALE_FACTOR, 600 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 
     g.setOpacity(1);
-    g.drawImageWithin(glassTexture, 32 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(glassTexture, 752 * SCALE_FACTOR, 122 * SCALE_FACTOR, 16 * SCALE_FACTOR, 366 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(glassTexture, 30 * SCALE_FACTOR, 120 * SCALE_FACTOR, 20 * SCALE_FACTOR, 370 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(glassTexture, 750 * SCALE_FACTOR, 120 * SCALE_FACTOR, 20 * SCALE_FACTOR, 370 * SCALE_FACTOR, juce::RectanglePlacement::stretchToFit);
 }
 
 void RalphComponent::drawScrews(Graphics& g) {
