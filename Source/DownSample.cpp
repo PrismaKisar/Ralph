@@ -30,27 +30,28 @@ void DownSample::processBlock(AudioBuffer<float>& buffer, AudioBuffer<double>& m
     auto bufferData = buffer.getArrayOfWritePointers();
     auto modData = modulation.getArrayOfWritePointers();
     auto numModCh = modulation.getNumChannels();
-    int t = 0;
-    auto targetSampleRate = 44100;
-
+    
+    int sampleCounter = 0;
+    int ratio;
+    double targetSampleRate;
+    
     for (int smp = 0; smp < numSamples; ++smp) {
         for (int ch = 0; ch < numChannels; ++ch) {
-            targetSampleRate = jmin(modData[jmin(ch, numModCh - 1)][smp], 44100.0);
+            targetSampleRate = jmin(modData[jmin(ch, numModCh - 1)][smp], currentSampleRate);
             ratio = static_cast<int>(currentSampleRate / targetSampleRate);
-    
-            if (++t %= ratio) 
-                bufferData[ch][smp] = lastValue;
-            else 
+            
+            if ((sampleCounter % ratio) == 0)
                 lastValue = bufferData[ch][smp];
+            else
+                bufferData[ch][smp] = lastValue;
         }
+        
+        sampleCounter++;
     }
     
     dryWet.mixWetSamples(audioBlock);
 }
 
-
 void DownSample::setDryWet(float newValue) {
     dryWet.setWetMixProportion(newValue);
 }
-
-//  y = (++t %= n) ? y : x
