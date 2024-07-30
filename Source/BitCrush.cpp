@@ -27,8 +27,8 @@ void BitCrush::processBlock(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<
 }
 
 float BitCrush::crush(float value, double bits) {
-    const double QL = 2.0 / (pow(2, bits) - 1);
-    return QL * static_cast<int>(value / QL);
+    const double QL = (pow(2, bits) - 1) * 0.5;
+    return static_cast<int>(value * QL) / QL;
 }
 
 void BitCrush::setDryWet(float newValue) {
