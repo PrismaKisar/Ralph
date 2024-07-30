@@ -1,7 +1,5 @@
 #pragma once
 #include <JuceHeader.h>
-#include <cstdlib>
-#include <ctime>
 
 constexpr int SINUSOID = 0;
 constexpr int TRIANGULAR = 1;
@@ -30,6 +28,8 @@ private:
     double phaseIncrement;
     float prevValue;
     bool newCycle;
+
+    juce::Random randomGenerator;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscillator)
 };

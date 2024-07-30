@@ -9,7 +9,6 @@ Oscillator::Oscillator(double defaultFrequency, int defaultWaveform) :
     newCycle(true)
 {
     frequency.setTargetValue(defaultFrequency);
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
 void Oscillator::prepareToPlay(double sampleRate) {
@@ -58,7 +57,7 @@ float Oscillator::getNextAudioSample() {
             break;
         case SAMPLE_AND_HOLD:
             if (newCycle) {
-                sampleValue = 2.0 * (std::rand() / static_cast<double>(RAND_MAX)) - 1.0;
+                sampleValue = 2.0 * (randomGenerator.nextDouble()) - 1.0;
                 prevValue = sampleValue;
                 newCycle = false;
             } else {
@@ -72,10 +71,8 @@ float Oscillator::getNextAudioSample() {
 
     phaseIncrement = frequency.getNextValue() * samplePeriod;
     currentPhase += phaseIncrement;
-    if (currentPhase >= 1.0) {
-        currentPhase -= static_cast<int>(currentPhase);
-        newCycle = true;
-    }
+    newCycle = currentPhase >= 1.0;
+    currentPhase -= static_cast<int>(currentPhase);
     
     return static_cast<float>(sampleValue);
 }
