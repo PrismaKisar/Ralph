@@ -27,6 +27,7 @@ RalphComponent::RalphComponent(RalphAudioProcessor& p, AudioProcessorValueTreeSt
     pointOOneImage = juce::ImageFileFormat::loadFrom(BinaryData::pointOOne_png, BinaryData::pointOOne_pngSize);
     sixtyImage = juce::ImageFileFormat::loadFrom(BinaryData::sixty_png, BinaryData::sixty_pngSize);
     fourImage = juce::ImageFileFormat::loadFrom(BinaryData::four_png, BinaryData::four_pngSize);
+    threeImage = juce::ImageFileFormat::loadFrom(BinaryData::three_png, BinaryData::three_pngSize);
     tenKImage = juce::ImageFileFormat::loadFrom(BinaryData::tenK_png, BinaryData::tenK_pngSize);
     twentyFourImage = juce::ImageFileFormat::loadFrom(BinaryData::twentyFour_png, BinaryData::twentyFour_pngSize);
     fiveHundredImage = juce::ImageFileFormat::loadFrom(BinaryData::fiveHundred_png, BinaryData::fiveHundred_pngSize);
@@ -107,7 +108,7 @@ void RalphComponent::paint(juce::Graphics& g) {
     g.drawImageWithin(zeroImage, 467, 417, 9, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fourImage, 203, 417, 10, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(tenKImage, 520, 417, 18, 10, juce::RectanglePlacement::stretchToFit);
-    g.drawImageWithin(fourImage, 155, 235, 10, 10, juce::RectanglePlacement::stretchToFit);
+    g.drawImageWithin(threeImage, 155, 235, 10, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(twentyFourImage, 305, 235, 18, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fiveHundredImage, 470, 235, 20, 10, juce::RectanglePlacement::stretchToFit);
     g.drawImageWithin(fourFourKImage, 620, 235, 27, 10, juce::RectanglePlacement::stretchToFit);

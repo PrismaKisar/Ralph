@@ -24,6 +24,7 @@
                 file="Source/CustomLookAndFeel.h"/>
         </GROUP>
         <GROUP id="{E7406A7B-08E0-4ADF-1546-FC9A4DC253DF}" name="Images">
+          <FILE id="QUGvlV" name="three.png" compile="0" resource="1" file="Source/three.png"/>
           <FILE id="kaNAMO" name="texture.jpg" compile="0" resource="1" file="Source/texture.jpg"/>
           <FILE id="PDllhs" name="screw.png" compile="0" resource="1" file="Source/screw.png"/>
           <FILE id="tOTT4b" name="glass.png" compile="0" resource="1" file="Source/glass.png"/>
@@ -41,13 +42,13 @@
           <FILE id="RwT0aj" name="fourFourK.png" compile="0" resource="1" file="Source/fourFourK.png"/>
           <FILE id="DXWoFD" name="quad.png" compile="0" resource="1" file="Source/quad.png"/>
           <FILE id="lwgSTq" name="sawDown.png" compile="0" resource="1" file="Source/sawDown.png"/>
+          <FILE id="ew7v6o" name="four.png" compile="0" resource="1" file="Source/four.png"/>
           <FILE id="hCmCOQ" name="sawUp.png" compile="0" resource="1" file="Source/sawUp.png"/>
           <FILE id="BcdGFQ" name="sh.png" compile="0" resource="1" file="Source/sh.png"/>
           <FILE id="Hq1DKJ" name="sin.png" compile="0" resource="1" file="Source/sin.png"/>
           <FILE id="qowE4s" name="tri.png" compile="0" resource="1" file="Source/tri.png"/>
           <FILE id="UyZoAZ" name="hertz.png" compile="0" resource="1" file="Source/hertz.png"/>
           <FILE id="HRVWmT" name="fiveHundred.png" compile="0" resource="1" file="Source/fiveHundred.png"/>
-          <FILE id="w1xK3w" name="four.png" compile="0" resource="1" file="Source/four.png"/>
           <FILE id="ogKTsf" name="hundred.png" compile="0" resource="1" file="Source/hundred.png"/>
           <FILE id="tiIn7H" name="pointOOne.png" compile="0" resource="1" file="Source/pointOOne.png"/>
           <FILE id="K3MTsS" name="sixty.png" compile="0" resource="1" file="Source/sixty.png"/>

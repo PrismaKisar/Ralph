@@ -27,7 +27,7 @@ private:
     Image backgroundTexture, glassTexture, screwImage;
     Image ralphWrite, bitCrushWrite, downSampleWrite;
     Image bitsWrite, hertzWrite, frequencyWrite, amountWrite, dryWetWrite, waveformWrite;
-    Image zeroImage, hundredImage, pointOOneImage, sixtyImage, fourImage, tenKImage, twentyFourImage, fiveHundredImage, fourFourKImage;
+    Image zeroImage, hundredImage, pointOOneImage, sixtyImage, threeImage, fourImage, tenKImage, twentyFourImage, fiveHundredImage, fourFourKImage;
     Image triImage, sinImage, sawUpImage, sawDownImage, quadImage, shImage;
 
     TimedSlider gainINSlider, gainOUTSlider;
