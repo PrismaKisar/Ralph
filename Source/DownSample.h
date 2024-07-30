@@ -17,7 +17,7 @@ private:
     dsp::DryWetMixer<float> dryWet;
     std::vector<float> previousValue;
 
-    float lastValue = 0.0f;
+    float lastValue[2] = {0.0f, 0.0f};
     double currentSampleRate;
     int ratio;
     
