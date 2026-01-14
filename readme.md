@@ -1,52 +1,58 @@
-# Ralph — Bit-Crusher & Downsampler VST
+# Ralph
 
-**Ralph** is a JUCE-based audio plugin developed as a university project at the LIM, University of Milan.
+Bit-crusher & Downsampler VST plugin developed with JUCE framework.
 
->  A bit-crusher and downsampler with modulation capabilities, tailored for drums and available in both mono and stereo.
-
----
+> University project — LIM, University of Milan
 
 ## Features
 
-- Independent **bit-crushing** and **downsampling** sections
-- **Parameter modulation**: waveform, amount, frequency
-- **Input/Output gain** controls
-- **Separate Dry/Wet** mix for each effect
-- Works in **mono and stereo**
----
+- **Bit-crushing** with adjustable bit depth
+- **Downsampling** with integer sample rate factors
+- **LFO modulation** for both effects (waveform, amount, frequency)
+- **Dry/Wet** mix per effect
+- **Input/Output** gain controls
+- Mono and Stereo support
 
+## Usage
 
-## How to Use
+| Section | Controls |
+|---------|----------|
+| Input/Output | Gain knobs (left/right) |
+| Bit Crush | Main control + modulation params |
+| Downsample | Main control + modulation params |
+| Mix | Independent dry/wet per effect |
 
-1. **Input and Output gain** knobs are on the far left and right
-2. Two central sections:
-   - One for **bit-crushing**
-   - One for **downsampling**
-3. Each section includes:
-   - A main control
-   - Modulation parameters (waveform, amount, frequency)
-   - *Note:* waveform is positive-only (not bipolar)
-4. **Two Dry/Wet** mix controls (one per effect)
+**Note:** Downsampling uses discrete integer factors only.
 
-> ❗️ Downsampling currently only supports integer factors of the sample rate (non-continuous parameter).
+## Build
 
----
+**Requirements:**
+- [JUCE Framework](https://juce.com/)
+- Xcode (macOS) or Visual Studio 2022 (Windows)
 
-## ⚠️ Disclaimer
+```bash
+# Open Ralph.jucer in Projucer, then export and build
+```
 
-This plugin was developed **for educational purposes only**, with **no commercial intent** or professional-grade guarantees.  
-The author is **not responsible** for any potential issues or data loss caused by its use.
+## Project Structure
 
----
-
-## Contact
-
-Developed by [Alessandro Sarchi](mailto:alessandro.sarchi02@gmail.com)  
-LIM — University of Milan  
-🔗 [https://www.lim.di.unimi.it](https://www.lim.di.unimi.it)
-
----
+```
+Source/
+├── DSP/
+│   ├── Crushing/    # BitCrush, DownSample
+│   ├── LFO/         # Oscillator, ModulationControl
+│   └── Processor/   # PluginProcessor, Parameters
+└── GUI/
+    ├── Editor/      # PluginEditor, TimedSlider
+    ├── Metering/    # Meter
+    └── LookAndFeel/ # CustomLookAndFeel
+```
 
 ## License
 
 Free for personal and academic use. Not for commercial distribution.
+
+## Contact
+
+Alessandro Sarchi — [alessandro.sarchi02@gmail.com](mailto:alessandro.sarchi02@gmail.com)  
+[LIM — University of Milan](https://www.lim.di.unimi.it)
